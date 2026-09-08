@@ -6,14 +6,14 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Checklist Rema">
+    <meta name="apple-mobile-web-app-title" content="RTT Check">
     <meta name="theme-color" content="#8b0000">
 
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="icone-192.png">
     <link rel="apple-touch-icon" href="icone-192.png">
 
-    <title>Checklist de Fotos - Pré-Operação</title>
+    <title>RTT Check - Pré-Operação</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -49,11 +49,16 @@
             display: none; 
             animation: fadeIn 0.4s ease-out;
         }
+        
+        /* AJUSTE MESTRE: Centralizando o Card na tela inicial perfeitamente */
         #tela-inicial {
             display: flex; 
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
             text-align: center;
             padding: 40px 25px;
+            margin: auto; /* O segredo para centralizar em qualquer tela */
         }
 
         .logo-container {
@@ -85,7 +90,7 @@
         /* ESTILOS DA TELA INICIAL E BOTÃO INICIAR */
         .welcome-title {
             color: #8b0000;
-            font-size: 28px;
+            font-size: 32px;
             margin-top: 20px;
             margin-bottom: 5px;
             font-weight: 900;
@@ -122,7 +127,7 @@
 
         /* AJUSTE DO NOVO BOTÃO REINICIAR */
         .btn-reiniciar {
-            width: 160px; /* Um pouco menor que o Iniciar */
+            width: 160px; 
             margin: 15px auto 0 auto;
             padding: 12px;
             background-color: #8b0000;
@@ -366,8 +371,9 @@
         <img src="icone-192.png" alt="Logo Rema Tip Top" class="logo">
     </div>
     
-    <h1 class="welcome-title">RemaCheck</h1>
-    <p class="welcome-subtitle">Controle de Qualidade e Operação</p>
+    <!-- NOVOS TÍTULOS -->
+    <h1 class="welcome-title">RTT Check</h1>
+    <p class="welcome-subtitle">Controle de Qualidade</p>
     
     <button class="btn-iniciar" onclick="iniciarApp()">
         INICIAR
@@ -385,8 +391,9 @@
         <img src="icone-192.png" alt="Logo" class="logo" style="max-width: 90px; max-height: 60px;">
     </div>
 
-    <h2>Relatório Fotográfico</h2>
-    <p class="subtitle">Checklist Pré-Operação</p>
+    <!-- NOVOS TÍTULOS NA TELA DO FORMULÁRIO -->
+    <h2>RTT Check</h2>
+    <p class="subtitle">Controle de Qualidade</p>
     
     <div class="info-group">
         <label class="input-label" for="tipo-servico">Selecione o Serviço:</label>
@@ -488,7 +495,6 @@
         </button>
         <div class="ajuda-envio">Envie o texto primeiro, volte aqui e envie as fotos. Elas ficarão logo abaixo no WhatsApp.</div>
         
-        <!-- NOVO BOTÃO REINICIAR: Começa desativado -->
         <button id="btn-reiniciar" class="btn-reiniciar" onclick="limparDados()" disabled>
             REINICIAR
         </button>
@@ -539,19 +545,15 @@
     // ==========================================
     let timeoutSalvar;
     
-    // Função que verifica se existe algum dado preenchido (Ignorando o select de serviço)
     function checarDadosParaReiniciar() {
         let temDado = false;
 
-        // Verifica inputs de texto e áreas de observação
         document.querySelectorAll('input[type="text"], input[type="tel"], textarea').forEach(el => {
             if (el.value.trim() !== "") temDado = true;
         });
 
-        // Verifica se algum botão de rádio foi clicado (OK, Não OK, N/A)
         if (document.querySelector('input[type="radio"]:checked')) temDado = true;
 
-        // Habilita ou desabilita o botão Reiniciar
         const btnReiniciar = document.getElementById('btn-reiniciar');
         if (btnReiniciar) {
             btnReiniciar.disabled = !temDado;
@@ -561,7 +563,7 @@
     function agendarSalvamento() {
         clearTimeout(timeoutSalvar);
         timeoutSalvar = setTimeout(salvarEstado, 500);
-        checarDadosParaReiniciar(); // Verifica em tempo real enquanto digita
+        checarDadosParaReiniciar(); 
     }
 
     document.addEventListener('input', agendarSalvamento);
@@ -608,7 +610,7 @@
     function carregarEstado() {
         let salvo = localStorage.getItem('remaCheckEstado');
         if (!salvo) {
-            checarDadosParaReiniciar(); // Se não tem nada salvo, garante que o botão inicie bloqueado
+            checarDadosParaReiniciar(); 
             return;
         }
         
@@ -655,7 +657,6 @@
             }
         }
         
-        // Verifica se habilitamos o botão reiniciar após carregar o salvamento
         checarDadosParaReiniciar(); 
     }
 
