@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Checklist Rema">
+    <meta name="theme-color" content="#8b0000">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icone-192.png">
+    <link rel="apple-touch-icon" href="icone-192.png">
+
+    <title>Checklist de Fotos - Pré-Operação</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100dvh;
+            margin: 0;
+            padding: 4vh 15px 20px 15px;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow-y: scroll; 
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #tela-principal {
+            display: none; 
+            animation: fadeIn 0.4s ease-out;
+        }
+        #tela-inicial {
+            display: flex; 
+            justify-content: center;
+            text-align: center;
+            padding: 40px 25px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 15px;
+            min-height: 50px;
+        }
+        .logo {
+            max-width: 140px;
+            max-height: 100px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        /* ESTILOS DA TELA INICIAL E BOTÃO INICIAR */
+        .welcome-title {
+            color: #8b0000;
+            font-size: 28px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+        .welcome-subtitle {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 40px;
+        }
+        .btn-iniciar {
+            width: 200px;
+            margin: 0 auto; 
+            padding: 16px;
+            background-color: #8b0000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+        .btn-iniciar:active {
+            background-color: #660000;
+            transform: scale(0.98);
+        }
+
+        /* AJUSTE DO NOVO BOTÃO REINICIAR */
+        .btn-reiniciar {
+            width: 160px; /* Um pouco menor que o Iniciar */
+            margin: 15px auto 0 auto;
+            padding: 12px;
+            background-color: #8b0000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.2s, transform 0.1s, opacity 0.2s;
+            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+        .btn-reiniciar:active:not(:disabled) {
+            background-color: #660000;
+            transform: scale(0.98);
+        }
+        .btn-reiniciar:disabled {
+            background-color: #ccc;
+            color: #888;
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .info-group {
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        label.input-label {
+            font-size: 13px;
+            color: #555;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, input[type="text"], input[type="tel"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+            background-color: white;
+            font-family: inherit;
+        }
+        select:focus, input[type="text"]:focus, input[type="tel"]:focus, textarea:focus {
+            outline: none;
+            border-color: #8b0000;
+            box-shadow: 0 0 5px rgba(139, 0, 0, 0.4);
+        }
+        input[type="text"]:last-child, input[type="tel"]:last-child, textarea:last-child {
+            margin-bottom: 0;
+        }
+        textarea {
+            resize: vertical;
+        }
+
+        .checklist-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .checklist-main-title {
+            font-size: 16px;
+            color: #333;
+            border-bottom: 2px solid #8b0000;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+        .section-header {
+            font-size: 12px;
+            color: #fff;
+            background-color: #343a40;
+            padding: 6px 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        
+        .check-item-container {
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+        }
+        .check-item-container:last-child {
+            border-bottom: none;
+        }
+        .check-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .check-item-name {
+            font-size: 13.5px;
+            color: #333;
+            font-weight: 500;
+            flex-grow: 1;
+            padding-right: 8px;
+            line-height: 1.2;
+        }
+
+        .toggle-group {
+            display: flex;
+            background: #e9ecef;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .toggle-group input[type="radio"] { display: none; }
+        .toggle-group label {
+            padding: 8px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 0;
+            border-right: 1px solid #dee2e6;
+            text-align: center;
+        }
+        .toggle-group label:last-child { border-right: none; }
+        .toggle-group.dual label { min-width: 45px; }
+        .toggle-group.triple label { min-width: 35px; }
+        .toggle-group input[value="OK"]:checked + label { background-color: #28a745; color: white; }
+        .toggle-group input[value="Não OK"]:checked + label { background-color: #dc3545; color: white; }
+        .toggle-group input[value="N/A"]:checked + label { background-color: #6c757d; color: white; }
+
+        .photo-section {
+            margin-top: 10px;
+            display: none; 
+            align-items: center;
+            flex-wrap: wrap; 
+            gap: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #e9ecef;
+        }
+        
+        .btn-camera {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            color: #495057;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: 0.2s;
+        }
+        .btn-camera:active { background-color: #e2e6ea; }
+        
+        .photo-thumb {
+            width: 48px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+
+        .action-buttons {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn-enviar-texto {
+            width: 100%;
+            padding: 14px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+        }
+        .btn-enviar-texto:active { background-color: #1ebe57; }
+        
+        .btn-enviar-fotos {
+            width: 100%;
+            padding: 14px;
+            background-color: #128C7E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+        }
+        .btn-enviar-fotos:active { background-color: #0c6b5f; }
+
+        .ajuda-envio {
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 11px;
+            color: #999;
+            line-height: 1.4;
+        }
+
+        .area-servico { display: none; }
+    </style>
+</head>
+<body>
+
+<!-- TELA 1: BOAS VINDAS -->
+<div class="card" id="tela-inicial">
+    <div class="logo-container" style="margin-bottom: 0;">
+        <img src="icone-192.png" alt="Logo Rema Tip Top" class="logo">
+    </div>
+    
+    <h1 class="welcome-title">RemaCheck</h1>
+    <p class="welcome-subtitle">Controle de Qualidade e Operação</p>
+    
+    <button class="btn-iniciar" onclick="iniciarApp()">
+        INICIAR
+    </button>
+    
+    <div class="footer" style="margin-top: 40px;">
+        Desenvolvido por Paulo Matos<br>
+        Téc. Controle de Qualidade
+    </div>
+</div>
+
+<!-- TELA 2: APLICATIVO PRINCIPAL -->
+<div class="card" id="tela-principal">
+    <div class="logo-container">
+        <img src="icone-192.png" alt="Logo" class="logo" style="max-width: 90px; max-height: 60px;">
+    </div>
+
+    <h2>Relatório Fotográfico</h2>
+    <p class="subtitle">Checklist Pré-Operação</p>
+    
+    <div class="info-group">
+        <label class="input-label" for="tipo-servico">Selecione o Serviço:</label>
+        <select id="tipo-servico" onchange="mudarServico()" style="margin-bottom: 0;">
+            <option value="">-- Selecione uma opção --</option>
+            <option value="revestimento">Revestimento de Tambor</option>
+            <option value="emenda-lona-quente">Emenda de Correia de Lona a Quente</option>
+            <option value="emenda-lona-frio">Emenda de Correia de Lona a Frio</option>
+            <option value="emenda-cabo">Emenda de Correia de Cabo de Aço</option>
+        </select>
+    </div>
+
+    <!-- MÓDULO 1: REVESTIMENTO DE TAMBOR -->
+    <div id="modulo-revestimento" class="area-servico">
+        <div class="info-group">
+            <label class="input-label">Técnico Responsável:</label>
+            <input type="text" id="rev-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+            
+            <label class="input-label">Número da OM:</label>
+            <input type="tel" id="rev-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+            <label class="input-label">Identificação do Tambor:</label>
+            <input type="tel" id="rev-id-tambor" inputmode="numeric" placeholder="Ex: TR-313K-05" oninput="mascaraTambor(event)">
+        </div>
+        <div class="checklist-main-title">Registros Fotográficos</div>
+        <div class="checklist-container" id="checklist-revestimento"></div>
+        <div class="info-group" style="margin-top: 15px;">
+            <label class="input-label">Observações:</label>
+            <textarea id="rev-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+        </div>
+    </div>
+
+    <!-- MÓDULO 2: EMENDA DE CORREIA LONA A QUENTE -->
+    <div id="modulo-emenda-quente" class="area-servico">
+        <div class="info-group">
+            <label class="input-label">Técnico Responsável:</label>
+            <input type="text" id="eq-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+            
+            <label class="input-label">Número da OM:</label>
+            <input type="tel" id="eq-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+            <label class="input-label">Identificação da Emenda:</label>
+            <input type="text" id="eq-id-emenda" placeholder="EX: CORREIA TRANSPORTADORA TR-01" oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="checklist-main-title">Registros Fotográficos</div>
+        <div class="checklist-container" id="checklist-emenda-quente"></div>
+        <div class="info-group" style="margin-top: 15px;">
+            <label class="input-label">Observações:</label>
+            <textarea id="eq-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+        </div>
+    </div>
+
+    <!-- MÓDULO 3: EMENDA DE CORREIA LONA A FRIO -->
+    <div id="modulo-emenda-frio" class="area-servico">
+        <div class="info-group">
+            <label class="input-label">Técnico Responsável:</label>
+            <input type="text" id="ef-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+            
+            <label class="input-label">Número da OM:</label>
+            <input type="tel" id="ef-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+            <label class="input-label">Identificação da Emenda:</label>
+            <input type="text" id="ef-id-emenda" placeholder="EX: CORREIA TRANSPORTADORA TR-02" oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="checklist-main-title">Registros Fotográficos</div>
+        <div class="checklist-container" id="checklist-emenda-frio"></div>
+        <div class="info-group" style="margin-top: 15px;">
+            <label class="input-label">Observações:</label>
+            <textarea id="ef-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+        </div>
+    </div>
+
+    <!-- MÓDULO 4: EMENDA DE CORREIA DE CABO DE AÇO -->
+    <div id="modulo-emenda-cabo" class="area-servico">
+        <div class="info-group">
+            <label class="input-label">Técnico Responsável:</label>
+            <input type="text" id="ec-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+            
+            <label class="input-label">Número da OM:</label>
+            <input type="tel" id="ec-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+            <label class="input-label">Identificação da Emenda:</label>
+            <input type="text" id="ec-id-emenda" placeholder="EX: CORREIA CABO DE AÇO TR-03" oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="checklist-main-title">Registros Fotográficos</div>
+        <div class="checklist-container" id="checklist-emenda-cabo"></div>
+        <div class="info-group" style="margin-top: 15px;">
+            <label class="input-label">Observações:</label>
+            <textarea id="ec-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+        </div>
+    </div>
+
+    <div class="action-buttons" id="btn-container">
+        <button class="btn-enviar-texto" onclick="enviarTextoWhatsApp()">
+            📝 1º Passo: Enviar Relatório de Texto
+        </button>
+        <button class="btn-enviar-fotos" onclick="enviarFotosWhatsApp()">
+            📸 2º Passo: Enviar Álbum de Fotos
+        </button>
+        <div class="ajuda-envio">Envie o texto primeiro, volte aqui e envie as fotos. Elas ficarão logo abaixo no WhatsApp.</div>
+        
+        <!-- NOVO BOTÃO REINICIAR: Começa desativado -->
+        <button id="btn-reiniciar" class="btn-reiniciar" onclick="limparDados()" disabled>
+            REINICIAR
+        </button>
+    </div>
+
+    <div class="footer">
+        Desenvolvido por Paulo Matos<br>
+        Téc. Controle de Qualidade
+    </div>
+</div>
+
+<script>
+    function iniciarApp() {
+        document.getElementById('tela-inicial').style.display = 'none';
+        document.getElementById('tela-principal').style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('App blindado para rodar offline!', reg.scope))
+            .catch(err => console.error('Erro no modo offline', err));
+        });
+    }
+
+    function mascaraTambor(event) {
+        let input = event.target;
+        let valorLimpo = input.value.replace(/\D/g, ''); 
+        valorLimpo = valorLimpo.substring(0, 5);
+        
+        let valorFormatado = '';
+        if (valorLimpo.length > 0) {
+            valorFormatado = 'TR-' + valorLimpo.substring(0, 3);
+        }
+        if (valorLimpo.length >= 4) {
+            valorFormatado += 'K-' + valorLimpo.substring(3, 5);
+        }
+        input.value = valorFormatado;
+    }
+
+    const bancoDeFotos = {};
+    const bancoDeFotosBase64 = {}; 
+    let itemIndex = 0; 
+
+    // ==========================================
+    // SISTEMA DE BLINDAGEM E BOTÃO REINICIAR
+    // ==========================================
+    let timeoutSalvar;
+    
+    // Função que verifica se existe algum dado preenchido (Ignorando o select de serviço)
+    function checarDadosParaReiniciar() {
+        let temDado = false;
+
+        // Verifica inputs de texto e áreas de observação
+        document.querySelectorAll('input[type="text"], input[type="tel"], textarea').forEach(el => {
+            if (el.value.trim() !== "") temDado = true;
+        });
+
+        // Verifica se algum botão de rádio foi clicado (OK, Não OK, N/A)
+        if (document.querySelector('input[type="radio"]:checked')) temDado = true;
+
+        // Habilita ou desabilita o botão Reiniciar
+        const btnReiniciar = document.getElementById('btn-reiniciar');
+        if (btnReiniciar) {
+            btnReiniciar.disabled = !temDado;
+        }
+    }
+
+    function agendarSalvamento() {
+        clearTimeout(timeoutSalvar);
+        timeoutSalvar = setTimeout(salvarEstado, 500);
+        checarDadosParaReiniciar(); // Verifica em tempo real enquanto digita
+    }
+
+    document.addEventListener('input', agendarSalvamento);
+    document.addEventListener('change', agendarSalvamento);
+
+    function salvarEstado() {
+        const estado = { textos: {}, radios: {}, fotos: {} };
+        
+        document.querySelectorAll('input[type="text"], input[type="tel"], textarea, select').forEach(el => {
+            if(el.id) estado.textos[el.id] = el.value;
+        });
+
+        document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+            estado.radios[el.name] = el.value;
+        });
+
+        estado.fotos = bancoDeFotosBase64;
+
+        try {
+            localStorage.setItem('remaCheckEstado', JSON.stringify(estado));
+        } catch (e) {
+            console.warn("Limite de memória cheio. Salvando apenas os textos.", e);
+            delete estado.fotos; 
+            localStorage.setItem('remaCheckEstado', JSON.stringify(estado));
+        }
+    }
+
+    function base64ToFile(dataurl, index, nomeDaEtapa) {
+        try {
+            let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1];
+            let bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            let prefixoOrdem = String(index).padStart(2, '0');
+            let nomeLindo = prefixoOrdem + '_' + nomeDaEtapa.replace(/[^a-zA-Z0-9]/g, '_') + '.jpg';
+            return new File([u8arr], nomeLindo, {type:mime});
+        } catch(e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    function carregarEstado() {
+        let salvo = localStorage.getItem('remaCheckEstado');
+        if (!salvo) {
+            checarDadosParaReiniciar(); // Se não tem nada salvo, garante que o botão inicie bloqueado
+            return;
+        }
+        
+        let estado = JSON.parse(salvo);
+        
+        for (let id in estado.textos) {
+            let el = document.getElementById(id);
+            if (el) el.value = estado.textos[id];
+        }
+        
+        if (estado.textos['tipo-servico']) {
+            mudarServico();
+        }
+
+        for (let name in estado.radios) {
+            let valor = estado.radios[name];
+            let radio = document.querySelector(`input[name="${name}"][value="${valor}"]`);
+            if (radio) {
+                radio.checked = true;
+                let idx = name.replace('item', '');
+                toggleFotoBotao(idx);
+            }
+        }
+
+        if (estado.fotos) {
+            for (let index in estado.fotos) {
+                let dataUrl = estado.fotos[index];
+                bancoDeFotosBase64[index] = dataUrl;
+                
+                let thumb = document.getElementById(`thumb-${index}`);
+                if (thumb) {
+                    thumb.src = dataUrl;
+                    thumb.style.display = 'block';
+                }
+                
+                let radios = document.getElementsByName('item' + index);
+                if (radios.length > 0) {
+                    let wrapper = radios[0].closest('.check-item-wrapper');
+                    let nomeDaEtapa = wrapper ? wrapper.getAttribute('data-nome') : 'Foto';
+                    
+                    let arquivo = base64ToFile(dataUrl, index, nomeDaEtapa);
+                    if (arquivo) bancoDeFotos[index] = arquivo;
+                }
+            }
+        }
+        
+        // Verifica se habilitamos o botão reiniciar após carregar o salvamento
+        checarDadosParaReiniciar(); 
+    }
+
+    window.addEventListener('load', carregarEstado);
+
+    function limparDados() {
+        if(confirm("Deseja apagar todos os dados e começar uma nova inspeção do zero?")) {
+            localStorage.removeItem('remaCheckEstado');
+            location.reload();
+        }
+    }
+
+    // ==========================================
+    // ESTRUTURAS DO CHECKLIST
+    // ==========================================
+    const estruturaRevestimento = [
+        { tipo: 'item', nome: 'OM (pág. 1)' },
+        { tipo: 'item', nome: 'Superfície Preparada' },
+        { tipo: 'item', nome: 'Nominal do Tambor' },
+        { tipo: 'item', nome: 'Medição de Carcaça' },
+        { tipo: 'titulo', nome: 'LOTE E VALIDADE DOS MATERIAIS:' },
+        { tipo: 'item', nome: 'Solvente' },
+        { tipo: 'item', nome: 'Primer' },
+        { tipo: 'item', nome: 'Adesivo' },
+        { tipo: 'item', nome: 'Catalisador' },
+        { tipo: 'item', nome: 'Revestimento Utilizado' },
+        { tipo: 'titulo', nome: 'REGISTRO DO PROCEDIMENTO' },
+        { tipo: 'item', nome: '1° Ponto de Orvalho' },
+        { tipo: 'item', nome: 'Metal Primer Aplicado' },
+        { tipo: 'item', nome: '2° Ponto de Orvalho' },
+        { tipo: 'item', nome: 'Superfície com Adesivo Aplicado' },
+        { tipo: 'item', nome: 'Tambor Revestido' },
+        { tipo: 'item', nome: 'NÃO CONFORMIDADES' }
+    ];
+
+    const estruturaEmendaQuente = [
+        { tipo: 'item', nome: 'OM (pág. 1)' },
+        { tipo: 'titulo', nome: 'DIMENSÕES' },
+        { tipo: 'item', nome: 'ESPESSURA DA CORREIA' },
+        { tipo: 'item', nome: 'LARGURA DA EMENDA' },
+        { tipo: 'item', nome: 'ESPESSURA DA RÉGUA' },
+        { tipo: 'titulo', nome: 'MATERIAIS (FAB/VAL)' },
+        { tipo: 'item', nome: 'BORRACHA DE COBERTURA' },
+        { tipo: 'item', nome: 'BORRACHA DE LIGAÇÃO' },
+        { tipo: 'item', nome: 'ADESIVO' },
+        { tipo: 'item', nome: 'SOLVENTE' },
+        { tipo: 'item', nome: 'OUTROS' },
+        { tipo: 'titulo', nome: 'ALINHAMENTO' },
+        { tipo: 'item', nome: 'ALINHAMENTO DA EMENDA' },
+        { tipo: 'item', nome: 'COMP. DOS PASSOS' },
+        { tipo: 'titulo', nome: 'SUPERFÍCIE' },
+        { tipo: 'item', nome: 'SUP. LIXADA - CARGA' },
+        { tipo: 'item', nome: 'SUP. LIXADA - RETORNO' },
+        { tipo: 'item', nome: '1° PONTO DE ORVALHO' },
+        { tipo: 'item', nome: 'SUP. COM ADESIVO' },
+        { tipo: 'item', nome: 'LIGAÇÃO POSICIONADA' },
+        { tipo: 'item', nome: 'FECHAMENTO DA EMENDA' },
+        { tipo: 'titulo', nome: 'VARIÁVEIS DE VULCANIZAÇÃO' },
+        { tipo: 'item', nome: 'TEMP. DE VULCANIZAÇÃO (PAINEL PRENSA)' },
+        { tipo: 'item', nome: 'PRESSÃO DA BOMBA (KIT)' },
+        { tipo: 'titulo', nome: 'FINALIZAÇÃO' },
+        { tipo: 'item', nome: 'EMENDA FINALIZADA' },
+        { tipo: 'item', nome: 'MEDIÇÃO DE DUREZA' },
+        { tipo: 'item', nome: 'CONTRAPROVA DA DUREZA' },
+        { tipo: 'item', nome: 'NÃO CONFORMIDADES' }
+    ];
+
+    const estruturaEmendaFrio = [
+        { tipo: 'item', nome: 'OM (pág. 1)' },
+        { tipo: 'titulo', nome: 'DIMENSÕES' },
+        { tipo: 'item', nome: 'ESPESSURA DA CORREIA' },
+        { tipo: 'item', nome: 'LARGURA DA EMENDA' },
+        { tipo: 'titulo', nome: 'MATERIAIS (FAB/VAL)' },
+        { tipo: 'item', nome: 'ADESIVO' },
+        { tipo: 'item', nome: 'CATALISADOR' },
+        { tipo: 'item', nome: 'SOLVENTE' },
+        { tipo: 'item', nome: 'OUTROS' },
+        { tipo: 'titulo', nome: 'ALINHAMENTO' },
+        { tipo: 'item', nome: 'ALINHAMENTO DA EMENDA' },
+        { tipo: 'item', nome: 'COMPRIMENTO DOS PASSOS' },
+        { tipo: 'titulo', nome: 'SUPERFÍCIE' },
+        { tipo: 'item', nome: 'SUP. LIXADA - CARGA' },
+        { tipo: 'item', nome: 'SUP. LIXADA - RETORNO' },
+        { tipo: 'item', nome: '1° PONTO DE ORVALHO' },
+        { tipo: 'item', nome: 'PRIMEIRA DEMÃO DE ADESIVO' },
+        { tipo: 'item', nome: '2° PONTO DE ORVALHO' },
+        { tipo: 'item', nome: 'SEGUNDA DEMÃO DE ADESIVO' },
+        { tipo: 'item', nome: 'FECHAMENTO DA EMENDA' },
+        { tipo: 'item', nome: 'ROLETAMENTO DA EMENDA' },
+        { tipo: 'titulo', nome: 'FINALIZAÇÃO' },
+        { tipo: 'item', nome: 'EMENDA FINALIZADA' },
+        { tipo: 'item', nome: 'NÃO CONFORMIDADES' }
+    ];
+
+    const estruturaEmendaCabo = [
+        { tipo: 'item', nome: 'OM (pág. 1)' },
+        { tipo: 'titulo', nome: 'DIMENSÕES' },
+        { tipo: 'item', nome: 'ESPESSURA DA CORREIA' },
+        { tipo: 'item', nome: 'LARGURA DA EMENDA' },
+        { tipo: 'item', nome: 'ESPESSURA DA RÉGUA' },
+        { tipo: 'titulo', nome: 'MATERIAIS (FAB/VAL)' },
+        { tipo: 'item', nome: 'BORRACHA DE COBERTURA' },
+        { tipo: 'item', nome: 'BORRACHA DE LIGAÇÃO' },
+        { tipo: 'item', nome: 'LIGAÇÃO (MACARRÃO)' },
+        { tipo: 'item', nome: 'ADESIVO' },
+        { tipo: 'item', nome: 'SOLVENTE' },
+        { tipo: 'item', nome: 'OUTROS' },
+        { tipo: 'titulo', nome: 'ALINHAMENTO' },
+        { tipo: 'item', nome: 'ALINHAMENTO DA EMENDA' },
+        { tipo: 'item', nome: 'COMP. DOS CABOS' },
+        { tipo: 'titulo', nome: 'SUPERFÍCIE' },
+        { tipo: 'item', nome: 'CABOS LIMPOS' },
+        { tipo: 'item', nome: 'CHANFROS LIXADOS' },
+        { tipo: 'item', nome: '1° PONTO DE ORVALHO' },
+        { tipo: 'item', nome: 'COBERTURA INFERIOR MONTADA' },
+        { tipo: 'item', nome: 'ESPAGUETAMENTO FEITO' },
+        { tipo: 'item', nome: 'COBERTURA SUPERIOR MONTADA' },
+        { tipo: 'titulo', nome: 'VARIÁVEIS DE VULCANIZAÇÃO' },
+        { tipo: 'item', nome: 'TEMP. DE VULCANIZAÇÃO (PAINEL PRENSA)' },
+        { tipo: 'item', nome: 'PRESSÃO DA BOMBA (KIT)' },
+        { tipo: 'titulo', nome: 'FINALIZAÇÃO' },
+        { tipo: 'item', nome: 'EMENDA VULCANIZADA' },
+        { tipo: 'item', nome: 'LATERAL DIREITA' },
+        { tipo: 'item', nome: 'LATERAL ESQUERDA' },
+        { tipo: 'item', nome: 'MEDIÇÃO DE DUREZA' },
+        { tipo: 'item', nome: 'CONTRAPROVA DA DUREZA' },
+        { tipo: 'item', nome: 'NÃO CONFORMIDADES' }
+    ];
+
+    window.toggleFotoBotao = function(index) {
+        const radioOk = document.getElementById('item' + index + '-ok');
+        const photoSection = document.getElementById('photo-section-' + index);
+        
+        if (radioOk && radioOk.checked) {
+            photoSection.style.display = 'flex';
+        } else {
+            photoSection.style.display = 'none';
+        }
+    }
+
+    function renderizarChecklist(estruturaArray, containerId) {
+        let htmlChecklist = '';
+        
+        estruturaArray.forEach(linha => {
+            if (linha.tipo === 'titulo') {
+                htmlChecklist += `<div class="section-header">${linha.nome}</div>`;
+            } else {
+                let nomeItem = linha.nome;
+                
+                let hasNA = (nomeItem === "NÃO CONFORMIDADES" || nomeItem === "OUTROS"); 
+                
+                let defaultNaoOk = !hasNA ? "checked" : "";
+                let defaultNA = hasNA ? "checked" : ""; 
+                let classeToggle = hasNA ? "triple" : "dual";
+
+                let botoesHtml = `
+                    <input type="radio" id="item${itemIndex}-ok" name="item${itemIndex}" value="OK" onchange="toggleFotoBotao(${itemIndex})">
+                    <label for="item${itemIndex}-ok">OK</label>
+                    
+                    <input type="radio" id="item${itemIndex}-nao" name="item${itemIndex}" value="Não OK" ${defaultNaoOk} onchange="toggleFotoBotao(${itemIndex})">
+                    <label for="item${itemIndex}-nao">Não OK</label>
+                `;
+
+                if (hasNA) {
+                    botoesHtml += `
+                        <input type="radio" id="item${itemIndex}-na" name="item${itemIndex}" value="N/A" ${defaultNA} onchange="toggleFotoBotao(${itemIndex})">
+                        <label for="item${itemIndex}-na">N/A</label>
+                    `;
+                }
+
+                htmlChecklist += `
+                    <div class="check-item-container check-item-wrapper" data-nome="${nomeItem}">
+                        <div class="check-item">
+                            <div class="check-item-name">${nomeItem}</div>
+                            <div class="toggle-group ${classeToggle}">
+                                ${botoesHtml}
+                            </div>
+                        </div>
+                        <div class="photo-section" id="photo-section-${itemIndex}">
+                            <input type="file" id="cam-${itemIndex}" accept="image/*" capture="environment" style="display: none;" onchange="processarFoto(event, ${itemIndex}, '${nomeItem}')">
+                            <label for="cam-${itemIndex}" class="btn-camera">
+                                📸 Câmera
+                            </label>
+
+                            <input type="file" id="gal-${itemIndex}" accept="image/*" style="display: none;" onchange="processarFoto(event, ${itemIndex}, '${nomeItem}')">
+                            <label for="gal-${itemIndex}" class="btn-camera">
+                                🖼️ Galeria
+                            </label>
+
+                            <img id="thumb-${itemIndex}" class="photo-thumb" alt="Miniatura">
+                        </div>
+                    </div>
+                `;
+                itemIndex++; 
+            }
+        });
+        document.getElementById(containerId).innerHTML = htmlChecklist;
+    }
+
+    renderizarChecklist(estruturaRevestimento, 'checklist-revestimento');
+    renderizarChecklist(estruturaEmendaQuente, 'checklist-emenda-quente');
+    renderizarChecklist(estruturaEmendaFrio, 'checklist-emenda-frio');
+    renderizarChecklist(estruturaEmendaCabo, 'checklist-emenda-cabo');
+
+    function processarFoto(event, index, nomeDaEtapa) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const MAX_DIMENSION = 1200; 
+                let drawW = img.width;
+                let drawH = img.height;
+
+                if (drawW > MAX_DIMENSION || drawH > MAX_DIMENSION) {
+                    if (drawW > drawH) {
+                        drawH = Math.round((drawH * MAX_DIMENSION) / drawW);
+                        drawW = MAX_DIMENSION;
+                    } else {
+                        drawW = Math.round((drawW * MAX_DIMENSION) / drawH);
+                        drawH = MAX_DIMENSION;
+                    }
+                }
+
+                canvas.width = drawW;
+                canvas.height = drawH;
+                const ctx = canvas.getContext('2d');
+                
+                ctx.drawImage(img, 0, 0, drawW, drawH);
+
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                const thumb = document.getElementById(`thumb-${index}`);
+                thumb.src = dataUrl;
+                thumb.style.display = 'block';
+
+                canvas.toBlob(function(blob) {
+                    const prefixoOrdem = String(index).padStart(2, '0');
+                    const nomeLindo = prefixoOrdem + '_' + nomeDaEtapa.replace(/[^a-zA-Z0-9]/g, '_') + '.jpg';
+                    const arquivoFinal = new File([blob], nomeLindo, { type: 'image/jpeg' });
+                    
+                    bancoDeFotos[index] = arquivoFinal;
+                    
+                    bancoDeFotosBase64[index] = dataUrl;
+                    salvarEstado();
+                    
+                }, 'image/jpeg', 0.8); 
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function mudarServico() {
+        const selecao = document.getElementById('tipo-servico').value;
+        const modRevestimento = document.getElementById('modulo-revestimento');
+        const modEmendaQuente = document.getElementById('modulo-emenda-quente');
+        const modEmendaFrio = document.getElementById('modulo-emenda-frio');
+        const modEmendaCabo = document.getElementById('modulo-emenda-cabo');
+        const btnContainer = document.getElementById('btn-container');
+
+        modRevestimento.style.display = 'none';
+        modEmendaQuente.style.display = 'none';
+        modEmendaFrio.style.display = 'none';
+        modEmendaCabo.style.display = 'none';
+        btnContainer.style.display = 'none';
+
+        if (selecao === 'revestimento') {
+            modRevestimento.style.display = 'block';
+            btnContainer.style.display = 'flex';
+        } else if (selecao === 'emenda-lona-quente') {
+            modEmendaQuente.style.display = 'block';
+            btnContainer.style.display = 'flex';
+        } else if (selecao === 'emenda-lona-frio') {
+            modEmendaFrio.style.display = 'block';
+            btnContainer.style.display = 'flex';
+        } else if (selecao === 'emenda-cabo') {
+            modEmendaCabo.style.display = 'block';
+            btnContainer.style.display = 'flex';
+        }
+    }
+
+    function gerarTextoRelatorio() {
+        const selecao = document.getElementById('tipo-servico');
+        const nomeServico = selecao.options[selecao.selectedIndex].text;
+        
+        const objData = new Date();
+        const dia = String(objData.getDate()).padStart(2, '0');
+        const mes = String(objData.getMonth() + 1).padStart(2, '0');
+        const ano = objData.getFullYear();
+        const dataFormatada = `${dia}/${mes}/${ano}`;
+        
+        let textoMsg = "*RELATÓRIO DE PRÉ-OPERAÇÃO*\n";
+        textoMsg += "*Serviço:* " + nomeServico + "\n";
+        textoMsg += "*Data:* " + dataFormatada + "\n\n";
+
+        const checkIcon = String.fromCodePoint(0x2705);
+        const crossIcon = String.fromCodePoint(0x274C);
+        const minusIcon = String.fromCodePoint(0x2796);
+
+        let containerChecklistId = '';
+        let obsTexto = '';
+
+        if (selecao.value === 'revestimento') {
+            const tec = document.getElementById('rev-tecnico').value.trim() || "Não informado";
+            const om = document.getElementById('rev-om').value.trim() || "Não informada";
+            const idTambor = document.getElementById('rev-id-tambor').value.trim() || "Não informado";
+            
+            textoMsg += "*Técnico:* " + tec + "\n";
+            textoMsg += "*OM:* " + om + "\n";
+            textoMsg += "*Identificação Tambor:* " + idTambor + "\n\n";
+            
+            containerChecklistId = 'checklist-revestimento';
+            obsTexto = document.getElementById('rev-observacoes').value.trim();
+        } 
+        else if (selecao.value === 'emenda-lona-quente') {
+            const tec = document.getElementById('eq-tecnico').value.trim() || "Não informado";
+            const om = document.getElementById('eq-om').value.trim() || "Não informada";
+            const idEmenda = document.getElementById('eq-id-emenda').value.trim() || "Não informado";
+            
+            textoMsg += "*Técnico:* " + tec + "\n";
+            textoMsg += "*OM:* " + om + "\n";
+            textoMsg += "*Identificação da Emenda:* " + idEmenda + "\n\n";
+            
+            containerChecklistId = 'checklist-emenda-quente';
+            obsTexto = document.getElementById('eq-observacoes').value.trim();
+        }
+        else if (selecao.value === 'emenda-lona-frio') {
+            const tec = document.getElementById('ef-tecnico').value.trim() || "Não informado";
+            const om = document.getElementById('ef-om').value.trim() || "Não informada";
+            const idEmenda = document.getElementById('ef-id-emenda').value.trim() || "Não informado";
+            
+            textoMsg += "*Técnico:* " + tec + "\n";
+            textoMsg += "*OM:* " + om + "\n";
+            textoMsg += "*Identificação da Emenda:* " + idEmenda + "\n\n";
+            
+            containerChecklistId = 'checklist-emenda-frio';
+            obsTexto = document.getElementById('ef-observacoes').value.trim();
+        }
+        else if (selecao.value === 'emenda-cabo') {
+            const tec = document.getElementById('ec-tecnico').value.trim() || "Não informado";
+            const om = document.getElementById('ec-om').value.trim() || "Não informada";
+            const idEmenda = document.getElementById('ec-id-emenda').value.trim() || "Não informado";
+            
+            textoMsg += "*Técnico:* " + tec + "\n";
+            textoMsg += "*OM:* " + om + "\n";
+            textoMsg += "*Identificação da Emenda:* " + idEmenda + "\n\n";
+            
+            containerChecklistId = 'checklist-emenda-cabo';
+            obsTexto = document.getElementById('ec-observacoes').value.trim();
+        }
+
+        textoMsg += "*CHECKLIST FOTOGRÁFICO:*\n";
+        
+        const elementosChecklist = document.getElementById(containerChecklistId).children;
+        
+        Array.from(elementosChecklist).forEach(el => {
+            if (el.classList.contains('section-header')) {
+                textoMsg += "\n*" + el.innerText + "*\n";
+            } else if (el.classList.contains('check-item-wrapper')) {
+                const nomeFoto = el.getAttribute('data-nome');
+                const radioSelecionado = el.querySelector('input[type="radio"]:checked');
+                const status = radioSelecionado ? radioSelecionado.value : "Não OK";
+                
+                let icone = crossIcon; 
+                let textoFinal = status;
+
+                if (status === 'OK') {
+                    icone = checkIcon; 
+                } else if (status === 'N/A') {
+                    icone = minusIcon; 
+                    textoFinal = 'Não Aplicável';
+                }
+                
+                textoMsg += icone + " " + nomeFoto + ": " + textoFinal + "\n";
+            }
+        });
+
+        if (obsTexto !== "") {
+            textoMsg += `\n*OBSERVAÇÕES:*\n${obsTexto}\n`;
+        }
+        
+        return textoMsg;
+    }
+
+    function enviarTextoWhatsApp() {
+        const textoMsg = gerarTextoRelatorio();
+        const params = new URLSearchParams();
+        params.append('text', textoMsg);
+        window.open('https://api.whatsapp.com/send?' + params.toString(), '_blank');
+    }
+
+    async function enviarFotosWhatsApp() {
+        const filesArray = [];
+        for (let i = 0; i < itemIndex; i++) {
+            const radioOk = document.getElementById('item' + i + '-ok');
+            if (radioOk && radioOk.checked && bancoDeFotos[i]) {
+                filesArray.push(bancoDeFotos[i]);
+            }
+        }
+
+        if (filesArray.length === 0) {
+            alert("Nenhuma foto foi tirada! Marque algum item como OK e adicione a foto primeiro.");
+            return;
+        }
+
+        if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+            try {
+                await navigator.share({
+                    files: filesArray
+                });
+            } catch (err) {
+                console.log("Compartilhamento cancelado", err);
+            }
+        } else {
+            alert("Seu navegador não suporta envio de álbum de imagens direto.");
+        }
+    }
+</script>
+
+</body>
+</html>
