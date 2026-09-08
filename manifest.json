@@ -1,0 +1,21 @@
+{
+  "name": "Checklist Rema Tip Top",
+  "short_name": "RemaCheck",
+  "description": "Relatório Fotográfico de Pré-Operação",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f0f2f5",
+  "theme_color": "#8b0000",
+  "icons": [
+    {
+      "src": "icone-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icone-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
