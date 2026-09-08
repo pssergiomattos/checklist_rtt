@@ -1,6 +1,6 @@
 {
-  "name": "Checklist Rema Tip Top",
-  "short_name": "RemaCheck",
+  "name": "RTT Check",
+  "short_name": "RTT Check",
   "description": "Relatório Fotográfico de Pré-Operação",
   "start_url": "./",
   "display": "standalone",
