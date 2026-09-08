@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Checklist Rema">
+    <meta name="theme-color" content="#8b0000">
+
+    <link rel="icon" href="data:image/webp;base64,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">
+    <link rel="apple-touch-icon" href="data:image/webp;base64,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">
+
+    <title>Checklist de Fotos - Pré-Operação</title>
+	<link rel="manifest" href="manifest.json">
+	
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100dvh;
+            margin: 0;
+            padding: 4vh 15px 20px 15px;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 15px;
+            min-height: 50px;
+        }
+        .logo {
+            max-width: 120px;
+            max-height: 80px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        .info-group {
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        label.input-label {
+            font-size: 13px;
+            color: #555;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, input[type="text"], input[type="tel"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+            background-color: white;
+            font-family: inherit;
+        }
+        select:focus, input[type="text"]:focus, input[type="tel"]:focus, textarea:focus {
+            outline: none;
+            border-color: #8b0000;
+            box-shadow: 0 0 5px rgba(139, 0, 0, 0.4);
+        }
+        input[type="text"]:last-child, input[type="tel"]:last-child, textarea:last-child {
+            margin-bottom: 0;
+        }
+        textarea {
+            resize: vertical;
+        }
+
+        .checklist-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .checklist-main-title {
+            font-size: 16px;
+            color: #333;
+            border-bottom: 2px solid #8b0000;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+        .section-header {
+            font-size: 12px;
+            color: #fff;
+            background-color: #343a40;
+            padding: 6px 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        
+        .check-item-container {
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+        }
+        .check-item-container:last-child {
+            border-bottom: none;
+        }
+        .check-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .check-item-name {
+            font-size: 13.5px;
+            color: #333;
+            font-weight: 500;
+            flex-grow: 1;
+            padding-right: 8px;
+            line-height: 1.2;
+        }
+
+        .toggle-group {
+            display: flex;
+            background: #e9ecef;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .toggle-group input[type="radio"] { display: none; }
+        .toggle-group label {
+            padding: 8px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 0;
+            border-right: 1px solid #dee2e6;
+            text-align: center;
+        }
+        .toggle-group label:last-child { border-right: none; }
+        .toggle-group.dual label { min-width: 45px; }
+        .toggle-group.triple label { min-width: 35px; }
+        .toggle-group input[value="OK"]:checked + label { background-color: #28a745; color: white; }
+        .toggle-group input[value="Não OK"]:checked + label { background-color: #dc3545; color: white; }
+        .toggle-group input[value="N/A"]:checked + label { background-color: #6c757d; color: white; }
+
+        .photo-section {
+            margin-top: 10px;
+            display: none; 
+            align-items: center;
+            flex-wrap: wrap; 
+            gap: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #e9ecef;
+        }
+        
+        .btn-camera {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            color: #495057;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: 0.2s;
+        }
+        .btn-camera:active { background-color: #e2e6ea; }
+        
+        .photo-thumb {
+            width: 48px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            display: none;
+        }
+
+        .action-buttons {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn-enviar-texto {
+            width: 100%;
+            padding: 14px;
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+        }
+        .btn-enviar-texto:active { background-color: #1ebe57; }
+        
+        .btn-enviar-fotos {
+            width: 100%;
+            padding: 14px;
+            background-color: #128C7E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+        }
+        .btn-enviar-fotos:active { background-color: #0c6b5f; }
+
+        .ajuda-envio {
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 11px;
+            color: #999;
+            line-height: 1.4;
+        }
+
+        .area-servico { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="logo-container">
+        <img src="data:image/webp;base64,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" alt="Logo" class="logo">
+    </div>
+
+    <h2>Relatório Fotográfico</h2>
+    <p class="subtitle">Checklist Pré-Operação</p>
+    
+    <div class="info-group">
+        <label class="input-label" for="tipo-servico">Selecione o Serviço:</label>
+        <select id="tipo-servico" onchange="mudarServico()" style="margin-bottom: 0;">
+            <option value="">-- Selecione uma opção --</option>
+            <option value="revestimento">Revestimento de Tambor</option>
+            <option value="emenda-lona-quente">Emenda de Correia de Lona a Quente</option>
+            <option value="emenda-lona-frio">Emenda de Correia de Lona a Frio</option>
+            <option value="emenda-cabo">Emenda de Correia de Cabo de Aço</option>
+        </select>
+    </div>
+
+    <!-- MÓDULO 1: REVESTIMENTO DE TAMBOR -->
+    <div id="modulo-revestimento" class="area-servico">
+        <div class="info-group">
+            <label class="input-label">Técnico Responsável:</label>
+            <input type="text" id="rev-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+            
+            <label class="input-label">Número da OM:</label>
+            <input type="tel" id="rev-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+            <label class="input-label">Identificação do Tambor:</label>
+            <input type="tel" id="rev-id-tambor" inputmode="numeric" placeholder="Ex: TR-313K-05" oninput="mascaraTambor(event)">
+        </div>
+        <div class="checklist-main-title">Registros Fotográficos</div>
+        <div class="checklist-container" id="checklist-revestimento"></div>
+        <div class="info-group" style="margin-top: 15px;">
+            <label class="input-label">Observações:</label>
+            <textarea id="rev-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+        </div>
+    </div>
+
+    <!-- MÓDULO 2: EMENDA DE CORREIA LONA A QUENTE -->
+    <div id="modulo-emenda-quente" class="area-servico">
+        <div class="info-group">
+            <label class="input-label">Técnico Responsável:</label>
+            <input type="text" id="eq-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+            
+            <label class="input-label">Número da OM:</label>
+            <input type="tel" id="eq-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+            <label class="input-label">Identificação da Emenda:</label>
+            <input type="text" id="eq-id-emenda" placeholder="EX: CORREIA TRANSPORTADORA TR-01" oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="checklist-main-title">Registros Fotográficos</div>
+        <div class="checklist-container" id="checklist-emenda-quente"></div>
+        <div class="info-group" style="margin-top: 15px;">
+            <label class="input-label">Observações:</label>
+            <textarea id="eq-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+        </div>
+    </div>
+
+    <!-- MÓDULO 3: EMENDA DE CORREIA LONA A FRIO -->
+    <div id="modulo-emenda-frio" class="area-servico">
+        <div class="info-group">
+            <label class="input-label">Técnico Responsável:</label>
+            <input type="text" id="ef-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+            
+            <label class="input-label">Número da OM:</label>
+            <input type="tel" id="ef-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+            <label class="input-label">Identificação da Emenda:</label>
+            <input type="text" id="ef-id-emenda" placeholder="EX: CORREIA TRANSPORTADORA TR-02" oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="checklist-main-title">Registros Fotográficos</div>
+        <div class="checklist-container" id="checklist-emenda-frio"></div>
+        <div class="info-group" style="margin-top: 15px;">
+            <label class="input-label">Observações:</label>
+            <textarea id="ef-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+        </div>
+    </div>
+
+    <!-- MÓDULO 4: EMENDA DE CORREIA DE CABO DE AÇO -->
+    <div id="modulo-emenda-cabo" class="area-servico">
+        <div class="info-group">
+            <label class="input-label">Técnico Responsável:</label>
+            <input type="text" id="ec-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+            
+            <label class="input-label">Número da OM:</label>
+            <input type="tel" id="ec-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+            <label class="input-label">Identificação da Emenda:</label>
+            <input type="text" id="ec-id-emenda" placeholder="EX: CORREIA CABO DE AÇO TR-03" oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="checklist-main-title">Registros Fotográficos</div>
+        <div class="checklist-container" id="checklist-emenda-cabo"></div>
+        <div class="info-group" style="margin-top: 15px;">
+            <label class="input-label">Observações:</label>
+            <textarea id="ec-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+        </div>
+    </div>
+
+    <div class="action-buttons" id="btn-container">
+        <button class="btn-enviar-texto" onclick="enviarTextoWhatsApp()">
+            📝 1º Passo: Enviar Relatório de Texto
+        </button>
+        <button class="btn-enviar-fotos" onclick="enviarFotosWhatsApp()">
+            📸 2º Passo: Enviar Álbum de Fotos
+        </button>
+        <div class="ajuda-envio">Envie o texto primeiro, volte aqui e envie as fotos. Elas ficarão logo abaixo no WhatsApp.</div>
+    </div>
+
+    <div class="footer">
+        Desenvolvido por Paulo Matos<br>
+        Téc. Controle de Qualidade
+    </div>
+</div>
+
+<script>
+    window.addEventListener("load", function() { setTimeout(function(){ window.scrollTo(0, 1); }, 0); });
+
+    function mascaraTambor(event) {
+        let input = event.target;
+        let valorLimpo = input.value.replace(/\D/g, ''); 
+        valorLimpo = valorLimpo.substring(0, 5);
+        
+        let valorFormatado = '';
+        if (valorLimpo.length > 0) {
+            valorFormatado = 'TR-' + valorLimpo.substring(0, 3);
+        }
+        if (valorLimpo.length >= 4) {
+            valorFormatado += 'K-' + valorLimpo.substring(3, 5);
+        }
+        input.value = valorFormatado;
+    }
+
+    const bancoDeFotos = {};
+    let itemIndex = 0; 
+
+    // ESTRUTURA 1: REVESTIMENTO DE TAMBOR
+    const estruturaRevestimento = [
+        { tipo: 'item', nome: 'OM (pág. 1)' },
+        { tipo: 'item', nome: 'Superfície Preparada' },
+        { tipo: 'item', nome: 'Nominal do Tambor' },
+        { tipo: 'item', nome: 'Medição de Carcaça' },
+        { tipo: 'titulo', nome: 'LOTE E VALIDADE DOS MATERIAIS:' },
+        { tipo: 'item', nome: 'Solvente' },
+        { tipo: 'item', nome: 'Primer' },
+        { tipo: 'item', nome: 'Adesivo' },
+        { tipo: 'item', nome: 'Catalisador' },
+        { tipo: 'item', nome: 'Revestimento Utilizado' },
+        { tipo: 'titulo', nome: 'REGISTRO DO PROCEDIMENTO' },
+        { tipo: 'item', nome: '1° Ponto de Orvalho' },
+        { tipo: 'item', nome: 'Metal Primer Aplicado' },
+        { tipo: 'item', nome: '2° Ponto de Orvalho' },
+        { tipo: 'item', nome: 'Superfície com Adesivo Aplicado' },
+        { tipo: 'item', nome: 'Tambor Revestido' },
+        { tipo: 'item', nome: 'NÃO CONFORMIDADES' }
+    ];
+
+    // ESTRUTURA 2: EMENDA A QUENTE
+    const estruturaEmendaQuente = [
+        { tipo: 'item', nome: 'OM (pág. 1)' },
+        { tipo: 'titulo', nome: 'DIMENSÕES' },
+        { tipo: 'item', nome: 'ESPESSURA DA CORREIA' },
+        { tipo: 'item', nome: 'LARGURA DA EMENDA' },
+        { tipo: 'item', nome: 'ESPESSURA DA RÉGUA' },
+        { tipo: 'titulo', nome: 'MATERIAIS (FAB/VAL)' },
+        { tipo: 'item', nome: 'BORRACHA DE COBERTURA' },
+        { tipo: 'item', nome: 'BORRACHA DE LIGAÇÃO' },
+        { tipo: 'item', nome: 'ADESIVO' },
+        { tipo: 'item', nome: 'SOLVENTE' },
+        { tipo: 'item', nome: 'OUTROS' },
+        { tipo: 'titulo', nome: 'ALINHAMENTO' },
+        { tipo: 'item', nome: 'ALINHAMENTO DA EMENDA' },
+        { tipo: 'item', nome: 'COMP. DOS PASSOS' },
+        { tipo: 'titulo', nome: 'SUPERFÍCIE' },
+        { tipo: 'item', nome: 'SUP. LIXADA - CARGA' },
+        { tipo: 'item', nome: 'SUP. LIXADA - RETORNO' },
+        { tipo: 'item', nome: '1° PONTO DE ORVALHO' },
+        { tipo: 'item', nome: 'SUP. COM ADESIVO' },
+        { tipo: 'item', nome: 'LIGAÇÃO POSICIONADA' },
+        { tipo: 'item', nome: 'FECHAMENTO DA EMENDA' },
+        { tipo: 'titulo', nome: 'VARIÁVEIS DE VULCANIZAÇÃO' },
+        { tipo: 'item', nome: 'TEMP. DE VULCANIZAÇÃO (PAINEL PRENSA)' },
+        { tipo: 'item', nome: 'PRESSÃO DA BOMBA (KIT)' },
+        { tipo: 'titulo', nome: 'FINALIZAÇÃO' },
+        { tipo: 'item', nome: 'EMENDA FINALIZADA' },
+        { tipo: 'item', nome: 'MEDIÇÃO DE DUREZA' },
+        { tipo: 'item', nome: 'CONTRAPROVA DA DUREZA' },
+        { tipo: 'item', nome: 'NÃO CONFORMIDADES' }
+    ];
+
+    // ESTRUTURA 3: EMENDA A FRIO
+    const estruturaEmendaFrio = [
+        { tipo: 'item', nome: 'OM (pág. 1)' },
+        { tipo: 'titulo', nome: 'DIMENSÕES' },
+        { tipo: 'item', nome: 'ESPESSURA DA CORREIA' },
+        { tipo: 'item', nome: 'LARGURA DA EMENDA' },
+        { tipo: 'titulo', nome: 'MATERIAIS (FAB/VAL)' },
+        { tipo: 'item', nome: 'ADESIVO' },
+        { tipo: 'item', nome: 'CATALISADOR' },
+        { tipo: 'item', nome: 'SOLVENTE' },
+        { tipo: 'item', nome: 'OUTROS' },
+        { tipo: 'titulo', nome: 'ALINHAMENTO' },
+        { tipo: 'item', nome: 'ALINHAMENTO DA EMENDA' },
+        { tipo: 'item', nome: 'COMPRIMENTO DOS PASSOS' },
+        { tipo: 'titulo', nome: 'SUPERFÍCIE' },
+        { tipo: 'item', nome: 'SUP. LIXADA - CARGA' },
+        { tipo: 'item', nome: 'SUP. LIXADA - RETORNO' },
+        { tipo: 'item', nome: '1° PONTO DE ORVALHO' },
+        { tipo: 'item', nome: 'PRIMEIRA DEMÃO DE ADESIVO' },
+        { tipo: 'item', nome: '2° PONTO DE ORVALHO' },
+        { tipo: 'item', nome: 'SEGUNDA DEMÃO DE ADESIVO' },
+        { tipo: 'item', nome: 'FECHAMENTO DA EMENDA' },
+        { tipo: 'item', nome: 'ROLETAMENTO DA EMENDA' },
+        { tipo: 'titulo', nome: 'FINALIZAÇÃO' },
+        { tipo: 'item', nome: 'EMENDA FINALIZADA' },
+        { tipo: 'item', nome: 'NÃO CONFORMIDADES' }
+    ];
+
+    // ==========================================
+    // ESTRUTURA 4: CABO DE AÇO OFICIAL
+    // ==========================================
+    const estruturaEmendaCabo = [
+        { tipo: 'item', nome: 'OM (pág. 1)' },
+        
+        { tipo: 'titulo', nome: 'DIMENSÕES' },
+        { tipo: 'item', nome: 'ESPESSURA DA CORREIA' },
+        { tipo: 'item', nome: 'LARGURA DA EMENDA' },
+        { tipo: 'item', nome: 'ESPESSURA DA RÉGUA' },
+        
+        { tipo: 'titulo', nome: 'MATERIAIS (FAB/VAL)' },
+        { tipo: 'item', nome: 'BORRACHA DE COBERTURA' },
+        { tipo: 'item', nome: 'BORRACHA DE LIGAÇÃO' },
+        { tipo: 'item', nome: 'LIGAÇÃO (MACARRÃO)' },
+        { tipo: 'item', nome: 'ADESIVO' },
+        { tipo: 'item', nome: 'SOLVENTE' },
+        { tipo: 'item', nome: 'OUTROS' },
+        
+        { tipo: 'titulo', nome: 'ALINHAMENTO' },
+        { tipo: 'item', nome: 'ALINHAMENTO DA EMENDA' },
+        { tipo: 'item', nome: 'COMP. DOS CABOS' },
+        
+        { tipo: 'titulo', nome: 'SUPERFÍCIE' },
+        { tipo: 'item', nome: 'CABOS LIMPOS' },
+        { tipo: 'item', nome: 'CHANFROS LIXADOS' },
+        { tipo: 'item', nome: '1° PONTO DE ORVALHO' },
+        { tipo: 'item', nome: 'COBERTURA INFERIOR MONTADA' },
+        { tipo: 'item', nome: 'ESPAGUETAMENTO FEITO' },
+        { tipo: 'item', nome: 'COBERTURA SUPERIOR MONTADA' },
+        
+        { tipo: 'titulo', nome: 'VARIÁVEIS DE VULCANIZAÇÃO' },
+        { tipo: 'item', nome: 'TEMP. DE VULCANIZAÇÃO (PAINEL PRENSA)' },
+        { tipo: 'item', nome: 'PRESSÃO DA BOMBA (KIT)' },
+        
+        { tipo: 'titulo', nome: 'FINALIZAÇÃO' },
+        { tipo: 'item', nome: 'EMENDA VULCANIZADA' },
+        { tipo: 'item', nome: 'LATERAL DIREITA' },
+        { tipo: 'item', nome: 'LATERAL ESQUERDA' },
+        { tipo: 'item', nome: 'MEDIÇÃO DE DUREZA' },
+        { tipo: 'item', nome: 'CONTRAPROVA DA DUREZA' },
+        
+        { tipo: 'item', nome: 'NÃO CONFORMIDADES' }
+    ];
+
+    window.toggleFotoBotao = function(index) {
+        const radioOk = document.getElementById('item' + index + '-ok');
+        const photoSection = document.getElementById('photo-section-' + index);
+        
+        if (radioOk && radioOk.checked) {
+            photoSection.style.display = 'flex';
+        } else {
+            photoSection.style.display = 'none';
+        }
+    }
+
+    function renderizarChecklist(estruturaArray, containerId) {
+        let htmlChecklist = '';
+        
+        estruturaArray.forEach(linha => {
+            if (linha.tipo === 'titulo') {
+                htmlChecklist += `<div class="section-header">${linha.nome}</div>`;
+            } else {
+                let nomeItem = linha.nome;
+                
+                let hasNA = (nomeItem === "NÃO CONFORMIDADES" || nomeItem === "OUTROS"); 
+                
+                let defaultNaoOk = !hasNA ? "checked" : "";
+                let defaultNA = hasNA ? "checked" : ""; 
+                let classeToggle = hasNA ? "triple" : "dual";
+
+                let botoesHtml = `
+                    <input type="radio" id="item${itemIndex}-ok" name="item${itemIndex}" value="OK" onchange="toggleFotoBotao(${itemIndex})">
+                    <label for="item${itemIndex}-ok">OK</label>
+                    
+                    <input type="radio" id="item${itemIndex}-nao" name="item${itemIndex}" value="Não OK" ${defaultNaoOk} onchange="toggleFotoBotao(${itemIndex})">
+                    <label for="item${itemIndex}-nao">Não OK</label>
+                `;
+
+                if (hasNA) {
+                    botoesHtml += `
+                        <input type="radio" id="item${itemIndex}-na" name="item${itemIndex}" value="N/A" ${defaultNA} onchange="toggleFotoBotao(${itemIndex})">
+                        <label for="item${itemIndex}-na">N/A</label>
+                    `;
+                }
+
+                htmlChecklist += `
+                    <div class="check-item-container check-item-wrapper" data-nome="${nomeItem}">
+                        <div class="check-item">
+                            <div class="check-item-name">${nomeItem}</div>
+                            <div class="toggle-group ${classeToggle}">
+                                ${botoesHtml}
+                            </div>
+                        </div>
+                        <div class="photo-section" id="photo-section-${itemIndex}">
+                            <input type="file" id="cam-${itemIndex}" accept="image/*" capture="environment" style="display: none;" onchange="processarFoto(event, ${itemIndex}, '${nomeItem}')">
+                            <label for="cam-${itemIndex}" class="btn-camera">
+                                📸 Câmera
+                            </label>
+
+                            <input type="file" id="gal-${itemIndex}" accept="image/*" style="display: none;" onchange="processarFoto(event, ${itemIndex}, '${nomeItem}')">
+                            <label for="gal-${itemIndex}" class="btn-camera">
+                                🖼️ Galeria
+                            </label>
+
+                            <img id="thumb-${itemIndex}" class="photo-thumb" alt="Miniatura">
+                        </div>
+                    </div>
+                `;
+                itemIndex++; 
+            }
+        });
+        document.getElementById(containerId).innerHTML = htmlChecklist;
+    }
+
+    // Injeta os HTMLs nos 4 módulos
+    renderizarChecklist(estruturaRevestimento, 'checklist-revestimento');
+    renderizarChecklist(estruturaEmendaQuente, 'checklist-emenda-quente');
+    renderizarChecklist(estruturaEmendaFrio, 'checklist-emenda-frio');
+    renderizarChecklist(estruturaEmendaCabo, 'checklist-emenda-cabo');
+
+    function processarFoto(event, index, nomeDaEtapa) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const MAX_DIMENSION = 1200; 
+                let drawW = img.width;
+                let drawH = img.height;
+
+                if (drawW > MAX_DIMENSION || drawH > MAX_DIMENSION) {
+                    if (drawW > drawH) {
+                        drawH = Math.round((drawH * MAX_DIMENSION) / drawW);
+                        drawW = MAX_DIMENSION;
+                    } else {
+                        drawW = Math.round((drawW * MAX_DIMENSION) / drawH);
+                        drawH = MAX_DIMENSION;
+                    }
+                }
+
+                canvas.width = drawW;
+                canvas.height = drawH;
+                const ctx = canvas.getContext('2d');
+                
+                ctx.drawImage(img, 0, 0, drawW, drawH);
+
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                const thumb = document.getElementById(`thumb-${index}`);
+                thumb.src = dataUrl;
+                thumb.style.display = 'block';
+
+                canvas.toBlob(function(blob) {
+                    const prefixoOrdem = String(index).padStart(2, '0');
+                    const nomeLindo = prefixoOrdem + '_' + nomeDaEtapa.replace(/[^a-zA-Z0-9]/g, '_') + '.jpg';
+                    const arquivoFinal = new File([blob], nomeLindo, { type: 'image/jpeg' });
+                    
+                    bancoDeFotos[index] = arquivoFinal;
+                }, 'image/jpeg', 0.8); 
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function mudarServico() {
+        const selecao = document.getElementById('tipo-servico').value;
+        const modRevestimento = document.getElementById('modulo-revestimento');
+        const modEmendaQuente = document.getElementById('modulo-emenda-quente');
+        const modEmendaFrio = document.getElementById('modulo-emenda-frio');
+        const modEmendaCabo = document.getElementById('modulo-emenda-cabo');
+        const btnContainer = document.getElementById('btn-container');
+
+        modRevestimento.style.display = 'none';
+        modEmendaQuente.style.display = 'none';
+        modEmendaFrio.style.display = 'none';
+        modEmendaCabo.style.display = 'none';
+        btnContainer.style.display = 'none';
+
+        if (selecao === 'revestimento') {
+            modRevestimento.style.display = 'block';
+            btnContainer.style.display = 'flex';
+        } else if (selecao === 'emenda-lona-quente') {
+            modEmendaQuente.style.display = 'block';
+            btnContainer.style.display = 'flex';
+        } else if (selecao === 'emenda-lona-frio') {
+            modEmendaFrio.style.display = 'block';
+            btnContainer.style.display = 'flex';
+        } else if (selecao === 'emenda-cabo') {
+            modEmendaCabo.style.display = 'block';
+            btnContainer.style.display = 'flex';
+        }
+    }
+
+    function gerarTextoRelatorio() {
+        const selecao = document.getElementById('tipo-servico');
+        const nomeServico = selecao.options[selecao.selectedIndex].text;
+        
+        const objData = new Date();
+        const dia = String(objData.getDate()).padStart(2, '0');
+        const mes = String(objData.getMonth() + 1).padStart(2, '0');
+        const ano = objData.getFullYear();
+        const dataFormatada = `${dia}/${mes}/${ano}`;
+        
+        let textoMsg = "*RELATÓRIO DE PRÉ-OPERAÇÃO*\n";
+        textoMsg += "*Serviço:* " + nomeServico + "\n";
+        textoMsg += "*Data:* " + dataFormatada + "\n\n";
+
+        const checkIcon = String.fromCodePoint(0x2705);
+        const crossIcon = String.fromCodePoint(0x274C);
+        const minusIcon = String.fromCodePoint(0x2796);
+
+        let containerChecklistId = '';
+        let obsTexto = '';
+
+        if (selecao.value === 'revestimento') {
+            const tec = document.getElementById('rev-tecnico').value.trim() || "Não informado";
+            const om = document.getElementById('rev-om').value.trim() || "Não informada";
+            const idTambor = document.getElementById('rev-id-tambor').value.trim() || "Não informado";
+            
+            textoMsg += "*Técnico:* " + tec + "\n";
+            textoMsg += "*OM:* " + om + "\n";
+            textoMsg += "*Identificação Tambor:* " + idTambor + "\n\n";
+            
+            containerChecklistId = 'checklist-revestimento';
+            obsTexto = document.getElementById('rev-observacoes').value.trim();
+        } 
+        else if (selecao.value === 'emenda-lona-quente') {
+            const tec = document.getElementById('eq-tecnico').value.trim() || "Não informado";
+            const om = document.getElementById('eq-om').value.trim() || "Não informada";
+            const idEmenda = document.getElementById('eq-id-emenda').value.trim() || "Não informado";
+            
+            textoMsg += "*Técnico:* " + tec + "\n";
+            textoMsg += "*OM:* " + om + "\n";
+            textoMsg += "*Identificação da Emenda:* " + idEmenda + "\n\n";
+            
+            containerChecklistId = 'checklist-emenda-quente';
+            obsTexto = document.getElementById('eq-observacoes').value.trim();
+        }
+        else if (selecao.value === 'emenda-lona-frio') {
+            const tec = document.getElementById('ef-tecnico').value.trim() || "Não informado";
+            const om = document.getElementById('ef-om').value.trim() || "Não informada";
+            const idEmenda = document.getElementById('ef-id-emenda').value.trim() || "Não informado";
+            
+            textoMsg += "*Técnico:* " + tec + "\n";
+            textoMsg += "*OM:* " + om + "\n";
+            textoMsg += "*Identificação da Emenda:* " + idEmenda + "\n\n";
+            
+            containerChecklistId = 'checklist-emenda-frio';
+            obsTexto = document.getElementById('ef-observacoes').value.trim();
+        }
+        else if (selecao.value === 'emenda-cabo') {
+            const tec = document.getElementById('ec-tecnico').value.trim() || "Não informado";
+            const om = document.getElementById('ec-om').value.trim() || "Não informada";
+            const idEmenda = document.getElementById('ec-id-emenda').value.trim() || "Não informado";
+            
+            textoMsg += "*Técnico:* " + tec + "\n";
+            textoMsg += "*OM:* " + om + "\n";
+            textoMsg += "*Identificação da Emenda:* " + idEmenda + "\n\n";
+            
+            containerChecklistId = 'checklist-emenda-cabo';
+            obsTexto = document.getElementById('ec-observacoes').value.trim();
+        }
+
+        textoMsg += "*CHECKLIST FOTOGRÁFICO:*\n";
+        
+        const elementosChecklist = document.getElementById(containerChecklistId).children;
+        
+        Array.from(elementosChecklist).forEach(el => {
+            if (el.classList.contains('section-header')) {
+                textoMsg += "\n*" + el.innerText + "*\n";
+            } else if (el.classList.contains('check-item-wrapper')) {
+                const nomeFoto = el.getAttribute('data-nome');
+                const radioSelecionado = el.querySelector('input[type="radio"]:checked');
+                const status = radioSelecionado ? radioSelecionado.value : "Não OK";
+                
+                let icone = crossIcon; 
+                let textoFinal = status;
+
+                if (status === 'OK') {
+                    icone = checkIcon; 
+                } else if (status === 'N/A') {
+                    icone = minusIcon; 
+                    textoFinal = 'Não Aplicável';
+                }
+                
+                textoMsg += icone + " " + nomeFoto + ": " + textoFinal + "\n";
+            }
+        });
+
+        if (obsTexto !== "") {
+            textoMsg += `\n*OBSERVAÇÕES:*\n${obsTexto}\n`;
+        }
+        
+        return textoMsg;
+    }
+
+    function enviarTextoWhatsApp() {
+        const textoMsg = gerarTextoRelatorio();
+        const params = new URLSearchParams();
+        params.append('text', textoMsg);
+        window.open('https://api.whatsapp.com/send?' + params.toString(), '_blank');
+    }
+
+    async function enviarFotosWhatsApp() {
+        const filesArray = [];
+        for (let i = 0; i < itemIndex; i++) {
+            const radioOk = document.getElementById('item' + i + '-ok');
+            if (radioOk && radioOk.checked && bancoDeFotos[i]) {
+                filesArray.push(bancoDeFotos[i]);
+            }
+        }
+
+        if (filesArray.length === 0) {
+            alert("Nenhuma foto foi tirada! Marque algum item como OK e adicione a foto primeiro.");
+            return;
+        }
+
+        if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+            try {
+                await navigator.share({
+                    files: filesArray
+                });
+            } catch (err) {
+                console.log("Compartilhamento cancelado", err);
+            }
+        } else {
+            alert("Seu navegador não suporta envio de álbum de imagens direto.");
+        }
+    }
+</script>
+
+<script>
+    // Registra o Service Worker para funcionar offline
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('App blindado para rodar offline!', reg.scope))
+            .catch(err => console.error('Erro no modo offline', err));
+        });
+    }
+</script>
+
+</body>
+</html>
