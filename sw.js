@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rema-checklist-v1';
+const CACHE_NAME = 'rema-checklist-v2'; // O segredo da atualização está em mudar esse número!
 const ASSETS = [
   './',
   './index.html',
@@ -7,15 +7,33 @@ const ASSETS = [
   './icone-512.png'
 ];
 
-// Instala o robozinho e faz o download da tela pro celular
+// Instala o novo robô e força ele a assumir o controle na hora
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(ASSETS))
   );
+  self.skipWaiting(); 
 });
 
-// Quando o técnico estiver sem internet, o robozinho entrega a tela salva no cache
+// Apaga o cache da versão velha (v1) e limpa a memória para a v2
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          if (cache !== CACHE_NAME) {
+            console.log('Apagando cache antigo:', cache);
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim(); 
+});
+
+// Entrega os arquivos salvos quando estiver offline
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
