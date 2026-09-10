@@ -20,14 +20,14 @@
             background-color: #f0f2f5;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center; /* FIXADO E CENTRALIZADO NO MEIO DA TELA */
             min-height: 100dvh;
             margin: 0;
-            padding: 4vh 15px 20px 15px;
+            padding: 20px 15px;
             box-sizing: border-box;
             user-select: none;
             -webkit-user-select: none;
-            overflow-y: scroll; 
+            overflow-y: auto; 
         }
         .card {
             background: white;
@@ -40,6 +40,7 @@
             flex-direction: column;
             position: relative;
             box-sizing: border-box;
+            margin: auto; /* Garante estabilidade total no centro */
         }
 
         @keyframes fadeIn {
@@ -62,8 +63,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px 0px;
-            margin: auto;
+            padding: 10px 0px;
             width: 100%;
         }
 
