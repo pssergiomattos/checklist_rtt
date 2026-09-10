@@ -13,7 +13,7 @@
     <link rel="icon" href="icone-192.png">
     <link rel="apple-touch-icon" href="icone-192.png">
 
-    <title>RTT Check - Pré-Operação</title>
+    <title>RTT Check - Controle de Qualidade</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -39,32 +39,41 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            box-sizing: border-box;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        #tela-principal {
-            display: none; 
+
+        /* GERENCIAMENTO DE TELA */
+        .app-screen {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+        }
+        .app-screen.ativo {
+            display: flex;
             animation: fadeIn 0.4s ease-out;
         }
-        
-        /* AJUSTE MESTRE: Centralizando o Card na tela inicial perfeitamente */
+
         #tela-inicial {
-            display: flex; 
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 25px;
-            margin: auto; /* O segredo para centralizar em qualquer tela */
+            padding: 20px 0px;
+            margin: auto;
+            width: 100%;
         }
 
         .logo-container {
             text-align: center;
             margin-bottom: 15px;
             min-height: 50px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
         .logo {
             max-width: 140px;
@@ -87,7 +96,7 @@
             margin-bottom: 20px;
         }
         
-        /* ESTILOS DA TELA INICIAL E BOTÃO INICIAR */
+        /* TELA INICIAL (LANDING PAGE) */
         .welcome-title {
             color: #8b0000;
             font-size: 32px;
@@ -95,22 +104,36 @@
             margin-bottom: 5px;
             font-weight: 900;
             letter-spacing: -0.5px;
+            text-align: center;
+            width: 100%;
         }
         .welcome-subtitle {
             color: #555;
             font-size: 15px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            width: 100%;
         }
-        .btn-iniciar {
-            width: 200px;
-            margin: 0 auto; 
+        
+        .menu-botoes-home {
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .btn-home {
+            width: 100%;
+            max-width: 260px; 
             padding: 16px;
             background-color: #8b0000;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             display: flex;
             justify-content: center;
@@ -119,13 +142,15 @@
             transition: background-color 0.2s, transform 0.1s;
             box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
             letter-spacing: 1px;
+            margin: 0 auto;
+            box-sizing: border-box;
         }
-        .btn-iniciar:active {
+        .btn-home:active {
             background-color: #660000;
             transform: scale(0.98);
         }
 
-        /* AJUSTE DO NOVO BOTÃO REINICIAR */
+        /* BOTÃO REINICIAR / PADRÃO REMA */
         .btn-reiniciar {
             width: 160px; 
             margin: 15px auto 0 auto;
@@ -143,6 +168,7 @@
             transition: background-color 0.2s, transform 0.1s, opacity 0.2s;
             box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
             letter-spacing: 1px;
+            box-sizing: border-box;
         }
         .btn-reiniciar:active:not(:disabled) {
             background-color: #660000;
@@ -156,6 +182,53 @@
             opacity: 0.7;
         }
 
+        /* BOTÃO CALCULAR PREMIUM */
+        .btn-calcular-orvalho {
+            width: 100%;
+            padding: 15px;
+            background-color: #8b0000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(139, 0, 0, 0.3);
+            letter-spacing: 1px;
+            margin-top: 15px;
+            box-sizing: border-box;
+        }
+        .btn-calcular-orvalho:active {
+            background-color: #660000;
+            transform: scale(0.98);
+        }
+
+        /* NOVO BOTÃO MENU PRINCIPAL */
+        .btn-menu-principal {
+            width: 100%;
+            padding: 12px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.2s;
+            box-sizing: border-box;
+            letter-spacing: 1px;
+        }
+        .btn-menu-principal:active {
+            background-color: #5a6268;
+        }
+
+        /* CAMPOS DO CHECKLIST */
         .info-group {
             margin-bottom: 20px;
             background: #f8f9fa;
@@ -181,13 +254,34 @@
             background-color: white;
             font-family: inherit;
         }
-        select:focus, input[type="text"]:focus, input[type="tel"]:focus, textarea:focus {
+
+        /* CAMPOS ESPECÍFICOS DO PONTO DE ORVALHO (ORIGINAIS) */
+        .orvalho-input-group label {
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .orvalho-input-group input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .orvalho-input-group input:focus {
+            outline: none;
+            border-color: #8b0000;
+            box-shadow: 0 0 5px rgba(139, 0, 0, 0.3);
+        }
+
+        select:focus, input:focus, textarea:focus {
             outline: none;
             border-color: #8b0000;
             box-shadow: 0 0 5px rgba(139, 0, 0, 0.4);
-        }
-        input[type="text"]:last-child, input[type="tel"]:last-child, textarea:last-child {
-            margin-bottom: 0;
         }
         textarea {
             resize: vertical;
@@ -223,9 +317,6 @@
         .check-item-container {
             border-bottom: 1px solid #eee;
             padding: 12px 0;
-        }
-        .check-item-container:last-child {
-            border-bottom: none;
         }
         .check-item {
             display: flex;
@@ -323,6 +414,7 @@
             align-items: center;
             gap: 8px;
             transition: background-color 0.2s;
+            box-sizing: border-box;
         }
         .btn-enviar-texto:active { background-color: #1ebe57; }
         
@@ -341,6 +433,7 @@
             align-items: center;
             gap: 8px;
             transition: background-color 0.2s;
+            box-sizing: border-box;
         }
         .btn-enviar-fotos:active { background-color: #0c6b5f; }
 
@@ -352,12 +445,83 @@
             font-style: italic;
         }
 
+        /* ORVALHO STYLES */
+        .orvalho-card-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .result-container-orvalho {
+            display: none; 
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .result-title {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 2px;
+        }
+        .result-title-margin {
+            margin-top: 10px;
+        }
+        .result-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: #8b0000;
+        }
+        .result-value-margin {
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+        }
+        .result-value-superficie {
+            font-size: 22px;
+            font-weight: bold;
+            color: #17a2b8;
+        }
+        .divider {
+            border-top: 1px solid #ccc;
+            margin: 15px 0;
+        }
+        .status-box {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .status-apto {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status-nao-apto {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .error-msg {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 13px;
+            display: none;
+        }
+
         .footer {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 11px;
             color: #999;
             line-height: 1.4;
+            width: 100%;
         }
 
         .area-servico { display: none; }
@@ -365,154 +529,229 @@
 </head>
 <body>
 
-<!-- TELA 1: BOAS VINDAS -->
-<div class="card" id="tela-inicial">
-    <div class="logo-container" style="margin-bottom: 0;">
-        <img src="icone-192.png" alt="Logo Rema Tip Top" class="logo">
-    </div>
-    
-    <!-- NOVOS TÍTULOS -->
-    <h1 class="welcome-title">RTT Check</h1>
-    <p class="welcome-subtitle">Controle de Qualidade</p>
-    
-    <button class="btn-iniciar" onclick="iniciarApp()">
-        INICIAR
-    </button>
-    
-    <div class="footer" style="margin-top: 40px;">
-        Desenvolvido por Paulo Matos<br>
-        Téc. Controle de Qualidade
-    </div>
-</div>
+<div class="card">
 
-<!-- TELA 2: APLICATIVO PRINCIPAL -->
-<div class="card" id="tela-principal">
-    <div class="logo-container">
-        <img src="icone-192.png" alt="Logo" class="logo" style="max-width: 90px; max-height: 60px;">
-    </div>
-
-    <!-- NOVOS TÍTULOS NA TELA DO FORMULÁRIO -->
-    <h2>RTT Check</h2>
-    <p class="subtitle">Controle de Qualidade</p>
-    
-    <div class="info-group">
-        <label class="input-label" for="tipo-servico">Selecione o Serviço:</label>
-        <select id="tipo-servico" onchange="mudarServico()" style="margin-bottom: 0;">
-            <option value="">-- Selecione uma opção --</option>
-            <option value="revestimento">Revestimento de Tambor</option>
-            <option value="emenda-lona-quente">Emenda de Correia de Lona a Quente</option>
-            <option value="emenda-lona-frio">Emenda de Correia de Lona a Frio</option>
-            <option value="emenda-cabo">Emenda de Correia de Cabo de Aço</option>
-        </select>
-    </div>
-
-    <!-- MÓDULO 1: REVESTIMENTO DE TAMBOR -->
-    <div id="modulo-revestimento" class="area-servico">
-        <div class="info-group">
-            <label class="input-label">Técnico Responsável:</label>
-            <input type="text" id="rev-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
-            
-            <label class="input-label">Número da OM:</label>
-            <input type="tel" id="rev-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
-            <label class="input-label">Identificação do Tambor:</label>
-            <input type="tel" id="rev-id-tambor" inputmode="numeric" placeholder="Ex: TR-313K-05" oninput="mascaraTambor(event)">
+    <!-- ============================================== -->
+    <!-- TELA 1: LANDING PAGE (INÍCIO)                  -->
+    <!-- ============================================== -->
+    <div class="app-screen ativo" id="tela-inicial">
+        <div class="logo-container" style="margin-bottom: 0;">
+            <img src="icone-192.png" alt="Logo Rema Tip Top" class="logo">
         </div>
-        <div class="checklist-main-title">Registros Fotográficos</div>
-        <div class="checklist-container" id="checklist-revestimento"></div>
-        <div class="info-group" style="margin-top: 15px;">
-            <label class="input-label">Observações:</label>
-            <textarea id="rev-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
-        </div>
-    </div>
-
-    <!-- MÓDULO 2: EMENDA DE CORREIA LONA A QUENTE -->
-    <div id="modulo-emenda-quente" class="area-servico">
-        <div class="info-group">
-            <label class="input-label">Técnico Responsável:</label>
-            <input type="text" id="eq-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
-            
-            <label class="input-label">Número da OM:</label>
-            <input type="tel" id="eq-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
-            <label class="input-label">Identificação da Emenda:</label>
-            <input type="text" id="eq-id-emenda" placeholder="EX: CORREIA TRANSPORTADORA TR-01" oninput="this.value = this.value.toUpperCase()">
-        </div>
-        <div class="checklist-main-title">Registros Fotográficos</div>
-        <div class="checklist-container" id="checklist-emenda-quente"></div>
-        <div class="info-group" style="margin-top: 15px;">
-            <label class="input-label">Observações:</label>
-            <textarea id="eq-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
-        </div>
-    </div>
-
-    <!-- MÓDULO 3: EMENDA DE CORREIA LONA A FRIO -->
-    <div id="modulo-emenda-frio" class="area-servico">
-        <div class="info-group">
-            <label class="input-label">Técnico Responsável:</label>
-            <input type="text" id="ef-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
-            
-            <label class="input-label">Número da OM:</label>
-            <input type="tel" id="ef-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
-            <label class="input-label">Identificação da Emenda:</label>
-            <input type="text" id="ef-id-emenda" placeholder="EX: CORREIA TRANSPORTADORA TR-02" oninput="this.value = this.value.toUpperCase()">
-        </div>
-        <div class="checklist-main-title">Registros Fotográficos</div>
-        <div class="checklist-container" id="checklist-emenda-frio"></div>
-        <div class="info-group" style="margin-top: 15px;">
-            <label class="input-label">Observações:</label>
-            <textarea id="ef-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
-        </div>
-    </div>
-
-    <!-- MÓDULO 4: EMENDA DE CORREIA DE CABO DE AÇO -->
-    <div id="modulo-emenda-cabo" class="area-servico">
-        <div class="info-group">
-            <label class="input-label">Técnico Responsável:</label>
-            <input type="text" id="ec-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
-            
-            <label class="input-label">Número da OM:</label>
-            <input type="tel" id="ec-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
-            <label class="input-label">Identificação da Emenda:</label>
-            <input type="text" id="ec-id-emenda" placeholder="EX: CORREIA CABO DE AÇO TR-03" oninput="this.value = this.value.toUpperCase()">
-        </div>
-        <div class="checklist-main-title">Registros Fotográficos</div>
-        <div class="checklist-container" id="checklist-emenda-cabo"></div>
-        <div class="info-group" style="margin-top: 15px;">
-            <label class="input-label">Observações:</label>
-            <textarea id="ec-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
-        </div>
-    </div>
-
-    <div class="action-buttons" id="btn-container">
-        <button class="btn-enviar-texto" onclick="enviarTextoWhatsApp()">
-            📝 1º Passo: Enviar Relatório de Texto
-        </button>
-        <button class="btn-enviar-fotos" onclick="enviarFotosWhatsApp()">
-            📸 2º Passo: Enviar Álbum de Fotos
-        </button>
-        <div class="ajuda-envio">Envie o texto primeiro, volte aqui e envie as fotos. Elas ficarão logo abaixo no WhatsApp.</div>
         
-        <button id="btn-reiniciar" class="btn-reiniciar" onclick="limparDados()" disabled>
-            REINICIAR
-        </button>
+        <h1 class="welcome-title">RTT Check</h1>
+        <p class="welcome-subtitle">Controle de Qualidade</p>
+        
+        <div class="menu-botoes-home">
+            <button class="btn-home" onclick="abrirTela('tela-principal')">
+                CHECKLIST
+            </button>
+            <button class="btn-home" onclick="abrirTela('tela-orvalho')">
+                PONTO DE ORVALHO
+            </button>
+        </div>
+        
+        <div class="footer" style="margin-top: 40px;">
+            Desenvolvido por Paulo Matos<br>
+            Téc. Controle de Qualidade
+        </div>
     </div>
 
-    <div class="footer">
-        Desenvolvido por Paulo Matos<br>
-        Téc. Controle de Qualidade
+
+    <!-- ============================================== -->
+    <!-- TELA 2: APLICATIVO PRINCIPAL (CHECKLIST)       -->
+    <!-- ============================================== -->
+    <div class="app-screen" id="tela-principal">
+        <div class="logo-container">
+            <img src="icone-192.png" alt="Logo" class="logo" style="max-width: 90px; max-height: 60px;">
+        </div>
+
+        <h2>RTT Check</h2>
+        <p class="subtitle">Controle de Qualidade</p>
+        
+        <div class="info-group">
+            <label class="input-label" for="tipo-servico">Selecione o Serviço:</label>
+            <select id="tipo-servico" onchange="mudarServico()" style="margin-bottom: 0;">
+                <option value="">-- Selecione uma opção --</option>
+                <option value="revestimento">Revestimento de Tambor</option>
+                <option value="emenda-lona-quente">Emenda de Correia de Lona a Quente</option>
+                <option value="emenda-lona-frio">Emenda de Correia de Lona a Frio</option>
+                <option value="emenda-cabo">Emenda de Correia de Cabo de Aço</option>
+            </select>
+        </div>
+
+        <!-- MÓDULOS DE SERVIÇO -->
+        <div id="modulo-revestimento" class="area-servico">
+            <div class="info-group">
+                <label class="input-label">Técnico Responsável:</label>
+                <input type="text" id="rev-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+                
+                <label class="input-label">Número da OM:</label>
+                <input type="tel" id="rev-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+                <label class="input-label">Identificação do Tambor:</label>
+                <input type="tel" id="rev-id-tambor" inputmode="numeric" placeholder="Ex: TR-313K-05" oninput="mascaraTambor(event)">
+            </div>
+            <div class="checklist-main-title">Registros Fotográficos</div>
+            <div class="checklist-container" id="checklist-revestimento"></div>
+            <div class="info-group" style="margin-top: 15px;">
+                <label class="input-label">Observações:</label>
+                <textarea id="rev-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+            </div>
+        </div>
+
+        <div id="modulo-emenda-quente" class="area-servico">
+            <div class="info-group">
+                <label class="input-label">Técnico Responsável:</label>
+                <input type="text" id="eq-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+                
+                <label class="input-label">Número da OM:</label>
+                <input type="tel" id="eq-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+                <label class="input-label">Identificação da Emenda:</label>
+                <input type="text" id="eq-id-emenda" placeholder="EX: CORREIA TRANSPORTADORA TR-01" oninput="this.value = this.value.toUpperCase()">
+            </div>
+            <div class="checklist-main-title">Registros Fotográficos</div>
+            <div class="checklist-container" id="checklist-emenda-quente"></div>
+            <div class="info-group" style="margin-top: 15px;">
+                <label class="input-label">Observações:</label>
+                <textarea id="eq-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+            </div>
+        </div>
+
+        <div id="modulo-emenda-frio" class="area-servico">
+            <div class="info-group">
+                <label class="input-label">Técnico Responsável:</label>
+                <input type="text" id="ef-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+                
+                <label class="input-label">Número da OM:</label>
+                <input type="tel" id="ef-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+                <label class="input-label">Identificação da Emenda:</label>
+                <input type="text" id="ef-id-emenda" placeholder="EX: CORREIA TRANSPORTADORA TR-02" oninput="this.value = this.value.toUpperCase()">
+            </div>
+            <div class="checklist-main-title">Registros Fotográficos</div>
+            <div class="checklist-container" id="checklist-emenda-frio"></div>
+            <div class="info-group" style="margin-top: 15px;">
+                <label class="input-label">Observações:</label>
+                <textarea id="ef-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+            </div>
+        </div>
+
+        <div id="modulo-emenda-cabo" class="area-servico">
+            <div class="info-group">
+                <label class="input-label">Técnico Responsável:</label>
+                <input type="text" id="ec-tecnico" placeholder="EX: PAULO MATOS" oninput="this.value = this.value.toUpperCase().replace(/[0-9]/g, '')">
+                
+                <label class="input-label">Número da OM:</label>
+                <input type="tel" id="ec-om" inputmode="numeric" placeholder="Somente números" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+                <label class="input-label">Identificação da Emenda:</label>
+                <input type="text" id="ec-id-emenda" placeholder="EX: CORREIA CABO DE AÇO TR-03" oninput="this.value = this.value.toUpperCase()">
+            </div>
+            <div class="checklist-main-title">Registros Fotográficos</div>
+            <div class="checklist-container" id="checklist-emenda-cabo"></div>
+            <div class="info-group" style="margin-top: 15px;">
+                <label class="input-label">Observações:</label>
+                <textarea id="ec-observacoes" rows="3" placeholder="Justifique aqui itens Não OK ou pendências do turno..."></textarea>
+            </div>
+        </div>
+
+        <div class="action-buttons" id="btn-container">
+            <button class="btn-enviar-texto" onclick="enviarTextoWhatsApp()">
+                1º Passo: Enviar Relatório de Texto
+            </button>
+            <button class="btn-enviar-fotos" onclick="enviarFotosWhatsApp()">
+                2º Passo: Enviar Álbum de Fotos
+            </button>
+            <div class="ajuda-envio">Envie o texto primeiro, volte aqui e envie as fotos. Elas ficarão logo abaixo no WhatsApp.</div>
+            
+            <button id="btn-reiniciar" class="btn-reiniciar" onclick="limparDados()" disabled>
+                REINICIAR
+            </button>
+        </div>
+
+        <div class="footer">
+            Desenvolvido por Paulo Matos<br>
+            Téc. Controle de Qualidade
+        </div>
     </div>
+
+
+    <!-- ============================================== -->
+    <!-- TELA 3: CÁLCULO DE PONTO DE ORVALHO            -->
+    <!-- ============================================== -->
+    <div class="app-screen" id="tela-orvalho">
+        <div class="logo-container">
+            <img src="icone-192.png" alt="Logo" class="logo" style="max-width: 90px; max-height: 60px;">
+        </div>
+
+        <h2>Ponto de Orvalho</h2>
+        <p class="subtitle">Análise Climática de Superfície</p>
+        
+        <div class="orvalho-card-content">
+            <!-- Formulário Orvalho -->
+            <div id="form-orvalho">
+                <div class="orvalho-input-group">
+                    <label for="temp">Temperatura Ambiente (°C):</label>
+                    <input type="number" id="temp" placeholder="Ex: 25" step="0.1" inputmode="decimal">
+
+                    <label for="umidade">Umidade Relativa (%):</label>
+                    <input type="number" id="umidade" placeholder="Ex: 60" step="0.1" min="0" max="100" inputmode="decimal">
+
+                    <label for="temp-superficie">Temperatura da Superfície (°C):</label>
+                    <input type="number" id="temp-superficie" placeholder="Ex: 28" step="0.1" inputmode="decimal">
+                </div>
+
+                <!-- BOTÃO DE CALCULAR PREMIUM -->
+                <button class="btn-calcular-orvalho" onclick="calcularOrvalho()">
+                    CALCULAR
+                </button>
+                <div class="error-msg" id="msg-erro-orvalho"></div>
+            </div>
+
+            <!-- Resultado Orvalho -->
+            <div class="result-container-orvalho" id="container-resultado-orvalho">
+                <div>
+                    <div class="result-title">Ponto de Orvalho:</div>
+                    <div class="result-value" id="resultado">-- °C</div>
+                    
+                    <div class="result-title result-title-margin">Margem Segura (+3°C):</div>
+                    <div class="result-value-margin" id="resultado-margem">-- °C</div>
+
+                    <div class="divider"></div>
+
+                    <div class="result-title">Temperatura da Superfície:</div>
+                    <div class="result-value-superficie" id="resultado-superficie">-- °C</div>
+
+                    <div id="status-aplicacao" class="status-box"></div>
+                </div>
+
+                <button class="btn-reiniciar" style="width: 100%; margin-top: 15px;" onclick="novoCalculoOrvalho()">NOVO CÁLCULO</button>
+            </div>
+        </div>
+
+        <button class="btn-menu-principal" onclick="abrirTela('tela-inicial')">MENU PRINCIPAL</button>
+
+        <div class="footer">
+            Desenvolvido por Paulo Matos<br>
+            Téc. Controle de Qualidade
+        </div>
+    </div>
+
 </div>
 
 <script>
-    function iniciarApp() {
-        document.getElementById('tela-inicial').style.display = 'none';
-        document.getElementById('tela-principal').style.display = 'flex';
+    // Gerenciador de navegação entre as Telas
+    function abrirTela(idTela) {
+        document.querySelectorAll('.app-screen').forEach(el => {
+            el.classList.remove('ativo');
+        });
+        document.getElementById(idTela).classList.add('ativo');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // REGISTRO DO SERVICE WORKER (PWA OFFLINE)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
@@ -521,6 +760,69 @@
         });
     }
 
+    // ==========================================
+    // LÓGICA DO PONTO DE ORVALHO
+    // ==========================================
+    function calcularOrvalho() {
+        const temp = parseFloat(document.getElementById('temp').value);
+        const umidade = parseFloat(document.getElementById('umidade').value);
+        const tempSuperficie = parseFloat(document.getElementById('temp-superficie').value);
+        
+        const formOrvalho = document.getElementById('form-orvalho');
+        const containerResultadoOrvalho = document.getElementById('container-resultado-orvalho');
+        const msgErro = document.getElementById('msg-erro-orvalho');
+        const statusAplicacao = document.getElementById('status-aplicacao');
+
+        if (isNaN(temp) || isNaN(umidade) || isNaN(tempSuperficie)) {
+            msgErro.style.display = 'block';
+            msgErro.innerText = "Preencha todos os campos numéricos.";
+            return;
+        }
+        if (umidade < 0 || umidade > 100) {
+            msgErro.style.display = 'block';
+            msgErro.innerText = "A umidade deve estar entre 0 e 100%.";
+            return;
+        }
+
+        const b = 17.625;
+        const c = 243.04;
+        const alfa = Math.log(umidade / 100) + ((b * temp) / (c + temp));
+        const pontoOrvalho = (c * alfa) / (b - alfa);
+        const pontoOrvalhoSeguro = pontoOrvalho + 3;
+
+        msgErro.style.display = 'none';
+        
+        formOrvalho.style.display = 'none';
+        containerResultadoOrvalho.style.display = 'flex';
+        
+        document.getElementById('resultado').innerText = pontoOrvalho.toFixed(1) + " °C";
+        document.getElementById('resultado-margem').innerText = pontoOrvalhoSeguro.toFixed(1) + " °C";
+        document.getElementById('resultado-superficie').innerText = tempSuperficie.toFixed(1) + " °C";
+
+        statusAplicacao.className = 'status-box';
+        
+        if (tempSuperficie >= pontoOrvalhoSeguro) {
+            statusAplicacao.classList.add('status-apto');
+            statusAplicacao.innerHTML = "SUPERFÍCIE APTA<br>Pode aplicar o adesivo!";
+        } else {
+            statusAplicacao.classList.add('status-nao-apto');
+            statusAplicacao.innerHTML = "NÃO APTO<br>Risco de condensação.";
+        }
+    }
+
+    function novoCalculoOrvalho() {
+        document.getElementById('container-resultado-orvalho').style.display = 'none';
+        document.getElementById('form-orvalho').style.display = 'block';
+        
+        document.getElementById('temp').value = '';
+        document.getElementById('umidade').value = '';
+        document.getElementById('temp-superficie').value = '';
+    }
+
+
+    // ==========================================
+    // LÓGICA DO CHECKLIST E BLINDAGEM
+    // ==========================================
     function mascaraTambor(event) {
         let input = event.target;
         let valorLimpo = input.value.replace(/\D/g, ''); 
@@ -540,9 +842,6 @@
     const bancoDeFotosBase64 = {}; 
     let itemIndex = 0; 
 
-    // ==========================================
-    // SISTEMA DE BLINDAGEM E BOTÃO REINICIAR
-    // ==========================================
     let timeoutSalvar;
     
     function checarDadosParaReiniciar() {
@@ -583,11 +882,11 @@
         estado.fotos = bancoDeFotosBase64;
 
         try {
-            localStorage.setItem('remaCheckEstado', JSON.stringify(estado));
+            localStorage.setItem('rttCheckEstado', JSON.stringify(estado));
         } catch (e) {
             console.warn("Limite de memória cheio. Salvando apenas os textos.", e);
             delete estado.fotos; 
-            localStorage.setItem('remaCheckEstado', JSON.stringify(estado));
+            localStorage.setItem('rttCheckEstado', JSON.stringify(estado));
         }
     }
 
@@ -608,7 +907,7 @@
     }
 
     function carregarEstado() {
-        let salvo = localStorage.getItem('remaCheckEstado');
+        let salvo = localStorage.getItem('rttCheckEstado');
         if (!salvo) {
             checarDadosParaReiniciar(); 
             return;
@@ -648,7 +947,7 @@
                 
                 let radios = document.getElementsByName('item' + index);
                 if (radios.length > 0) {
-                    let wrapper = radios[0].closest('.check-item-wrapper');
+                    let wrapper = radios[0].closest('.check-item-container');
                     let nomeDaEtapa = wrapper ? wrapper.getAttribute('data-nome') : 'Foto';
                     
                     let arquivo = base64ToFile(dataUrl, index, nomeDaEtapa);
@@ -664,14 +963,12 @@
 
     function limparDados() {
         if(confirm("Deseja apagar todos os dados e começar uma nova inspeção do zero?")) {
-            localStorage.removeItem('remaCheckEstado');
+            localStorage.removeItem('rttCheckEstado');
             location.reload();
         }
     }
 
-    // ==========================================
     // ESTRUTURAS DO CHECKLIST
-    // ==========================================
     const estruturaRevestimento = [
         { tipo: 'item', nome: 'OM (pág. 1)' },
         { tipo: 'item', nome: 'Superfície Preparada' },
@@ -805,9 +1102,7 @@
                 htmlChecklist += `<div class="section-header">${linha.nome}</div>`;
             } else {
                 let nomeItem = linha.nome;
-                
                 let hasNA = (nomeItem === "NÃO CONFORMIDADES" || nomeItem === "OUTROS"); 
-                
                 let defaultNaoOk = !hasNA ? "checked" : "";
                 let defaultNA = hasNA ? "checked" : ""; 
                 let classeToggle = hasNA ? "triple" : "dual";
@@ -828,7 +1123,7 @@
                 }
 
                 htmlChecklist += `
-                    <div class="check-item-container check-item-wrapper" data-nome="${nomeItem}">
+                    <div class="check-item-container" data-nome="${nomeItem}">
                         <div class="check-item">
                             <div class="check-item-name">${nomeItem}</div>
                             <div class="toggle-group ${classeToggle}">
@@ -837,14 +1132,10 @@
                         </div>
                         <div class="photo-section" id="photo-section-${itemIndex}">
                             <input type="file" id="cam-${itemIndex}" accept="image/*" capture="environment" style="display: none;" onchange="processarFoto(event, ${itemIndex}, '${nomeItem}')">
-                            <label for="cam-${itemIndex}" class="btn-camera">
-                                📸 Câmera
-                            </label>
+                            <label for="cam-${itemIndex}" class="btn-camera">Câmera</label>
 
                             <input type="file" id="gal-${itemIndex}" accept="image/*" style="display: none;" onchange="processarFoto(event, ${itemIndex}, '${nomeItem}')">
-                            <label for="gal-${itemIndex}" class="btn-camera">
-                                🖼️ Galeria
-                            </label>
+                            <label for="gal-${itemIndex}" class="btn-camera">Galeria</label>
 
                             <img id="thumb-${itemIndex}" class="photo-thumb" alt="Miniatura">
                         </div>
@@ -887,7 +1178,6 @@
                 canvas.width = drawW;
                 canvas.height = drawH;
                 const ctx = canvas.getContext('2d');
-                
                 ctx.drawImage(img, 0, 0, drawW, drawH);
 
                 const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
@@ -901,7 +1191,6 @@
                     const arquivoFinal = new File([blob], nomeLindo, { type: 'image/jpeg' });
                     
                     bancoDeFotos[index] = arquivoFinal;
-                    
                     bancoDeFotosBase64[index] = dataUrl;
                     salvarEstado();
                     
@@ -1018,7 +1307,7 @@
         Array.from(elementosChecklist).forEach(el => {
             if (el.classList.contains('section-header')) {
                 textoMsg += "\n*" + el.innerText + "*\n";
-            } else if (el.classList.contains('check-item-wrapper')) {
+            } else if (el.classList.contains('check-item-container')) {
                 const nomeFoto = el.getAttribute('data-nome');
                 const radioSelecionado = el.querySelector('input[type="radio"]:checked');
                 const status = radioSelecionado ? radioSelecionado.value : "Não OK";
