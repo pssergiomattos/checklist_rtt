@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rema-checklist-v3'; // O segredo da atualização está em mudar esse número!
+const CACHE_NAME = 'rema-checklist-v11'; // O segredo da atualização está em mudar esse número!
 const ASSETS = [
   './',
   './index.html',
