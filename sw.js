@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rtt-check-v16'; // Subimos para v13 para forçar a atualização geral
+const CACHE_NAME = 'rtt-check-v17'; // Subimos para v13 para forçar a atualização geral
 const ASSETS = [
   './',
   './index.html',
