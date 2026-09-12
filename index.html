@@ -1366,6 +1366,40 @@
             alert("Seu navegador não suporta envio de álbum de imagens direto.");
         }
     }
+
+    
+    // ==========================================
+    // INTERCEPTAR BOTÃO DE VOLTAR DO ANDROID
+    // ==========================================
+    
+    // Adiciona um estado inicial ao carregar a página
+    window.history.pushState({ tela: 'tela-inicial' }, '');
+
+    // Monitora quando o usuário aperta o botão de voltar físico do celular
+    window.addEventListener('popstate', function(event) {
+        const telaInicialAtiva = document.getElementById('tela-inicial').classList.contains('ativo');
+
+        if (!telaInicialAtiva) {
+            // Se o usuário estiver em qualquer outra tela, impede de sair e volta para o Menu
+            event.preventDefault();
+            abrirTela('tela-inicial');
+            // Empurra o estado inicial de novo para manter o loop de segurança
+            window.history.pushState({ tela: 'tela-inicial' }, '');
+        } else {
+            // Se já estiver na tela inicial e apertar de novo, deixa o app fechar normalmente
+            window.history.back();
+        }
+    });
+
+    // Atualiza o histórico sempre que o usuário navega para uma tela interna
+    const funcaoAbrirTelaOriginal = abrirTela;
+    window.abrirTela = function(idTela) {
+        funcaoAbrirTelaOriginal(idTela);
+        if (idTela !== 'tela-inicial') {
+            window.history.pushState({ tela: idTela }, '');
+        }
+    };
+    
 </script>
 
 </body>
