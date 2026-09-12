@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rema-checklist-v12'; // O segredo da atualização está em mudar esse número!
+const CACHE_NAME = 'rtt-check-v13'; // Subimos para v13 para forçar a atualização geral
 const ASSETS = [
   './',
   './index.html',
@@ -7,36 +7,48 @@ const ASSETS = [
   './icone-512.png'
 ];
 
-// Instala o novo robô e força ele a assumir o controle na hora
+// Instala o Service Worker e guarda os arquivos no cache offline
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS))
+      .then(cache => {
+        return cache.addAll(ASSETS);
+      })
   );
-  self.skipWaiting(); 
+  self.skipWaiting();
 });
 
-// Apaga o cache da versão velha (v1) e limpa a memória para a v2
+// Ativa o novo robô e limpa os caches antigos
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cache => {
           if (cache !== CACHE_NAME) {
-            console.log('Apagando cache antigo:', cache);
+            console.log('Removendo cache antigo:', cache);
             return caches.delete(cache);
           }
         })
       );
     })
   );
-  self.clients.claim(); 
+  self.clients.claim();
 });
 
-// Entrega os arquivos salvos quando estiver offline
+// Estratégia Cache First (Tenta pegar do celular primeiro, se não tiver, busca na rede)
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
-      .then(response => response || fetch(event.request))
+      .then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse; // Achou no celular, entrega instantaneamente (mesmo sem internet!)
+        }
+        return fetch(event.request).catch(() => {
+          // Se falhar a rede e não estiver no cache da raiz, retorna o index principal para não dar erro
+          if (event.request.mode === 'navigate') {
+            return caches.match('./index.html');
+          }
+        });
+      })
   );
 });
