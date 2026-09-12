@@ -492,9 +492,10 @@
             margin-top: 15px;
             padding: 12px;
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             text-align: center;
+            line-height: 1.4;
         }
         .status-apto {
             background-color: #d4edda;
@@ -549,7 +550,7 @@
             <button class="btn-home" onclick="abrirTela('tela-orvalho')">
                 PONTO DE ORVALHO
             </button>
-            <button class="btn-home" onclick="abrirTela('tela- carcaca')">
+            <button class="btn-home" onclick="abrirTela('tela-carcaca')">
                 MEDIÇÃO DE CARCAÇA
             </button>
         </div>
@@ -745,7 +746,7 @@
     <!-- ============================================== -->
     <!-- TELA 4: MEDIÇÃO DE CARCAÇA DE TAMBOR           -->
     <!-- ============================================== -->
-    <div class="app-screen" id="tela- carcaca">
+    <div class="app-screen" id="tela-carcaca">
         <div class="logo-container">
             <img src="icone-192.png" alt="Logo" class="logo" style="max-width: 90px; max-height: 60px;">
         </div>
@@ -945,10 +946,10 @@
         
         if (porcentagemDesgaste <= 10) {
             statusCarcaca.classList.add('status-apto');
-            statusCarcaca.innerHTML = "APTO PARA REVESTIMENTO<br>Desgaste de até 10% (Ponto de atenção).";
+            statusCarcaca.innerHTML = "APTO PARA REVESTIMENTO<br>Desgaste de até 10%<br>(Ponto de atenção)";
         } else {
             statusCarcaca.classList.add('status-nao-apto');
-            statusCarcaca.innerHTML = "NECESSITA AUTORIZAÇÃO<br>Desgaste acima de 10%!";
+            statusCarcaca.innerHTML = "INFORMAR LIDERANÇA<br>Desgaste acima de 10%!";
         }
     }
 
