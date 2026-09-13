@@ -960,10 +960,10 @@
         
         if (porcentagemDesgaste <= 10) {
             statusCarcaca.classList.add('status-apto');
-            statusCarcaca.innerHTML = "APTO PARA REVESTIMENTO<br>Desgaste de até 10%<br>(Ponto de atenção)";
+            statusCarcaca.innerHTML = "Desgaste abaixo de 10%.<br>APTO PARA REVESTIMENTO.";
         } else {
             statusCarcaca.classList.add('status-nao-apto');
-            statusCarcaca.innerHTML = "INFORMAR LIDERANÇA<br>Desgaste acima de 10%!";
+            statusCarcaca.innerHTML = "Atenção! Desgaste acima de 10%.<br>INFORMAR LIDERANÇA";
         }
     }
 
