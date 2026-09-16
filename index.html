@@ -764,10 +764,9 @@
                 <div class="error-msg" id="msg-erro-carcaca"></div>
             </div>
 
-            <!-- Resultado Carcaça (Compacto p/ Print Perfeito) -->
+            <!-- Resultado Carcaça -->
             <div class="result-container-orvalho" id="container-resultado-carcaca">
                 <div>
-                    <!-- Dados informados para o Print -->
                     <div style="display: flex; justify-content: space-around; margin-bottom: 6px; background: #fff; padding: 6px; border-radius: 6px; border: 1px solid #ddd;">
                         <div>
                             <span style="font-size: 11px; color: #777; display: block;">Nominal:</span>
@@ -949,10 +948,8 @@
         formCarcaca.style.display = 'none';
         containerResultadoCarcaca.style.display = 'flex';
         
-        // Exibe os valores de entrada na tela de resultado para fins de print e evidência
         document.getElementById('res-input-nominal').innerText = nominal.toFixed(1) + " mm";
         document.getElementById('res-input-menor').innerText = menorMedida.toFixed(1) + " mm";
-
         document.getElementById('resultado-dif-mm').innerText = diferenca.toFixed(2) + " mm";
         document.getElementById('resultado-porc-desgaste').innerText = porcentagemDesgaste.toFixed(1) + " %";
 
@@ -1317,7 +1314,8 @@
             const img = new Image();
             img.onload = function() {
                 const canvas = document.createElement('canvas');
-                const MAX_DIMENSION = 1200; 
+                // REDUÇÃO AGRESSIVA PARA EVITAR BUG DE MEMÓRIA NO COMPARTILHAMENTO
+                const MAX_DIMENSION = 800; 
                 let drawW = img.width;
                 let drawH = img.height;
 
@@ -1336,7 +1334,8 @@
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, drawW, drawH);
 
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                // REDUÇÃO DA QUALIDADE DO JPEG (0.6 é o ponto doce para peso vs visual)
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
                 const thumb = document.getElementById(`thumb-${index}`);
                 thumb.src = dataUrl;
                 thumb.style.display = 'block';
@@ -1350,7 +1349,7 @@
                     bancoDeFotosBase64[index] = dataUrl;
                     salvarEstado();
                     
-                }, 'image/jpeg', 0.8); 
+                }, 'image/jpeg', 0.6); 
             };
             img.src = e.target.result;
         };
@@ -1506,7 +1505,7 @@
         }
 
         if (filesArray.length === 0) {
-            alert("Nenhuma foto foi tirada! Marque algum item como OK e adicione a foto primeiro.");
+            alert("Nenhuma foto encontrada na memória! Se o app ficou muito tempo em segundo plano, as imagens podem ter sido descartadas. Tire as fotos novamente.");
             return;
         }
 
@@ -1516,10 +1515,11 @@
                     files: filesArray
                 });
             } catch (err) {
-                console.log("Compartilhamento cancelado", err);
+                console.log("Compartilhamento cancelado ou falhou", err);
+                alert("O sistema bloqueou o envio! As fotos ainda estão pesadas ou em muita quantidade. Tente enviar de duas vezes (desmarque metade como N/A, envie o primeiro lote e depois envie o restante).");
             }
         } else {
-            alert("Seu navegador não suporta envio de álbum de imagens direto.");
+            alert("Seu navegador/celular não suporta envio de todas essas imagens de uma vez ou o pacote excedeu o limite do sistema.");
         }
     }
 </script>
